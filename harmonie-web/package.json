@@ -1,0 +1,21 @@
+{
+  "name": "harmonie-web",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "vue": "^3.2.37",
+    "vue-i18n": "^9.1.10",
+    "vue-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "axios": "^0.27.2",
+    "chalk": "^5.0.1",
+    "vite": "^2.9.14",
+    "vue-cli-plugin-i18n": "~2.3.1"
+  }
+}
