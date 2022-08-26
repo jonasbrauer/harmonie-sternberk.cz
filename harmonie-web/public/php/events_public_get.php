@@ -17,7 +17,7 @@ include 'session.php';
 
 function get_events() {
   $connection = get_connection();
-  $sql = "SELECT * FROM events ORDER BY datetime;";
+  $sql = "SELECT * FROM events WHERE type = 'concert' ORDER BY datetime desc;";
   try {
     $result = $connection->query($sql);
   } catch (Exception $e) {

@@ -6,7 +6,9 @@
 
     <div class="media-content">
     <p >
-        <strong>{{ event && event.title }}</strong> <small>{{ event && event.link }}</small>
+        <small>{{ event && event.datetime && new Date(event.datetime).getHours() }}:00</small> - {{ event && event.location }}
+        <br>
+        <strong class="is-size-5">{{ event && event.title }}</strong> <small>{{ event && event.link }}</small>
         <br>
         <span>{{ event && event.subtitle }}</span>
     </p>

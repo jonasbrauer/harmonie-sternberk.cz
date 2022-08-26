@@ -36,4 +36,25 @@ function get_connection() {
 
 }
 
+function execute_sql($sql, $connection=null) {
+  // Automatically close connection and respond on db errors
+  if (!isset($connection)) {
+    $connection = get_connection();
+  }
+
+  try {
+    return $connection->query($sql);
+
+  } catch (Exception $e) {
+    http_response_code(402);
+    header('Content-Type: application/json');
+    echo json_encode($e->getMessage(), true);
+    exit();
+  
+  } finally {
+    $connection->close();
+  }
+
+}
+
 ?>
