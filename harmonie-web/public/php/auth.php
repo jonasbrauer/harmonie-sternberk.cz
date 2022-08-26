@@ -7,7 +7,7 @@ include 'session.php';
 
 
 // use for cookie hash
-// todo: move to DB
+// todo: move to hidden folder
 define('SECRET_WORD', 'bibfir%%MyH9u6qh4fv9iQAF6n$2!3n9wppLGc%^7NSpyEVrRnn@^DNhAr');
 
 
@@ -49,6 +49,7 @@ function logout() {
   // LOG-OUT on DELETE
   if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     unset($_SESSION['login']);
+    setcookie('rememberme', '', time() - 3600);
     echo "Logged out.";
     exit();
   }
@@ -56,8 +57,7 @@ function logout() {
 
 
 function validate_cookie() {
-  // CHECK THE SESSION COOKIE - if already logged-in
-  unset($username);
+  // CHECK THE SESSION COOKIE FIRST - if already logged-in
   if (isset($_SESSION['login']) && $_SESSION['login']) {
     list($c_username,$cookie_hash) = explode(',',$_SESSION['login']);
     if (password_verify($c_username.SECRET_WORD, $cookie_hash)) {
@@ -65,10 +65,24 @@ function validate_cookie() {
       return $c_username;
     }
 
-    // WRONG LOGIN COOKIE
+    // WRONG SESSION COOKIE
     unset($_SESSION['login']);
     return null;
   }
+
+  // CHECK THE REMEMBERME COOKIE
+  if (isset($_COOKIE['rememberme']) && $_COOKIE['rememberme']) {
+    list($c_username,$cookie_hash) = explode(',',$_COOKIE['rememberme']);
+    if (password_verify($c_username.SECRET_WORD, $cookie_hash)) {
+      // SESSION LOGGED IN
+      return $c_username;
+    }
+
+    // WRONG REMEMBER ME COOKIE
+    unset($_COOKIE['rememberme']);
+    return null;
+  }
+
 }
 
 function login_post() {
@@ -88,11 +102,19 @@ function login_post() {
   if (validate_password($username, $password)) {
     // LOGIN COOKIE = USERNAME,HASH(USERNAME,SECRET)
     $_SESSION['login'] = $username.','.password_hash($username.SECRET_WORD, PASSWORD_DEFAULT);
-    return $username;
   } else {
     http_response_code(401);
     exit();
   }
+
+  // Set rememberme cookie with 30-day validity
+  if (isset($_POST['rememberme']) && $_POST['rememberme']) {
+    $cookie_hash = password_hash($username.SECRET_WORD, PASSWORD_DEFAULT);
+    setcookie('rememberme', $username.','.$cookie_hash, time() + (3600 * 24 * 30));
+  }
+  return $username;
+
+
 }
 
 
