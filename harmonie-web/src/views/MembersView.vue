@@ -15,8 +15,26 @@
       </div>
     </section>    
 
+    <!-- FILTER TAGS -->
+    <div class="section tags py-0 ml-5">
+      <a
+        v-for="(type, key) in eventTypes" :key="key+'tag-type'+type"
+        @click="clickFilter(type)"
+        :class="{
+          tag: true,
+          'is-rounded': true,
+          'is-primary': eventTypesFilters.indexOf(type) == -1
+        }"
+        style="text-decoration: none"
+      >
+        {{ eventTypesMap[type] || type }}
+      </a>
+    </div>
+
+    <hr class="mt-1">
+
     <section class="section pt-0">
-      <RehearsalRow v-for="(event, index) in events" :key="'event' + index" :event="event"/>
+      <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
     </section>
 
   </div>
@@ -44,6 +62,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Breadcrumbs from '../components/Breadcrumbs.vue'
 import RehearsalRow from '../components/RehearsalRow.vue'
 
@@ -53,6 +72,23 @@ export default {
 
     inject: ['user'],
 
+    data() {
+      return {
+        events: [], // all events
+        showedEvents: [],
+        eventTypes: [],
+        eventTypesFilters: ['concert', 'tour'],
+        eventTypesMap: {
+          concert: "Koncerty",
+          rehearsal: "Zkoušky",
+          tour: "Zájezdy",
+        },
+        crumbs: [
+            ['home', 'Domů'], ['members', 'Pro členy']
+        ],
+      }
+    },
+
     created() {
       setTimeout(() => {
         if(!this.user) {
@@ -61,17 +97,39 @@ export default {
           this.$router.push({name:'home'})
         }
       }, 10000);
+
+      this.getEvents()
     },
 
-    data() {
-        return {
-          events: [
-            // #TODO: query all the events (members only included)
-          ],
-          crumbs: [
-              ['home', 'Domů'], ['members', 'Pro členy']
-          ],
+    methods: {
+
+      clickFilter(type) {
+        if (this.eventTypesFilters.indexOf(type) == -1) {
+          this.eventTypesFilters.push(type)
+        } else {
+          this.eventTypesFilters = this.eventTypesFilters.filter(t => t !== type)
         }
+        this.filterEvents();
+      },
+
+      filterEvents() {
+        this.showedEvents = this.events
+          .filter(event => this.eventTypesFilters.indexOf(event.type) == -1)
+          .sort((a, b) => a.datetime > b.datetime);
+      },
+
+      getEvents() {
+        const zero = new Date();
+        zero.setHours(0, 0, 0);
+        axios.get('/php/events_get.php')
+           .then(res => {
+              this.events = res.data
+                  .filter(event => event.datetime && new Date(event.datetime) > zero)
+                  .sort((a, b) => a.datetime > b.datetime);
+              this.eventTypes = new Set(this.events.map(e => e.type));
+              this.filterEvents();
+            })
+      },
     },
 
 }

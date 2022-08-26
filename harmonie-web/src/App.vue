@@ -28,6 +28,9 @@ export default {
 
   created() {
     this.getUser();
+  },
+
+  mounted() {
     this.getEvents();
   },
 
@@ -42,8 +45,10 @@ export default {
 
     getEvents() {
       axios
-        .get('/php/get_events.php')
-        .then(res => this.events = res.data)
+        .get('/php/events_public_get.php')
+        .then(res => {
+          this.events = res.data;
+        })
         .catch(err => this.events = [])
     },
 
@@ -69,7 +74,6 @@ export default {
     <transition>
       <RouterView/>
     </transition>
-
 
     <div class="footers">
       <FooterUpper/>
@@ -109,6 +113,11 @@ body {
   width: 100%;
 }
 
+/*
+  TRANSITIONS
+  for the entire app are located here
+*/
+
 .v-enter-active {
   transition: all 0.3s ease-out;
 }
@@ -122,5 +131,23 @@ body {
   transform: translateY(10px);
   opacity: 0;
 }
+
+/* --- */
+
+.slide-fade-leave-active,
+.slide-fade-enter-active {
+  transition: all 0.2s ease-out;
+}
+
+.slide-fade-enter-from {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+.slide-fade-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+
 
 </style>

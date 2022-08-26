@@ -7,6 +7,7 @@ import SuccessView from '../views/SuccessView.vue'
 import GalleryView from '../views/GalleryView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import MembersView from '../views/MembersView.vue'
+import AdminView from '../views/AdminView.vue'
 
 
 const router = createRouter({
@@ -16,37 +17,42 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/program',
       name: 'program',
-      component: ProgramView
+      component: ProgramView,
     },
     {
       path: '/dirigent',
       name: 'dirigent',
-      component: DirigentView
+      component: DirigentView,
     },
     {
       path: '/orchestr',
       name: 'orchestr',
-      component: OrchestrView
+      component: OrchestrView,
     },
     {
       path: '/orchestr/uspechy',
       name: 'success',
-      component: SuccessView
+      component: SuccessView,
     },
     {
       path: '/galerie',
       name: 'gallery',
-      component: GalleryView
+      component: GalleryView,
     },
     {
       path: '/procleny',
       name: 'members',
-      component: MembersView
+      component: MembersView,
+    },
+    {
+      path: '/administrace',
+      name: 'admin',
+      component: AdminView,
     },
     { 
       path: '/:catchAll(.*)', 

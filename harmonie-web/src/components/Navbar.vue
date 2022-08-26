@@ -97,6 +97,8 @@ export default {
 
             <RouterLink v-if="user" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'members'}">Sekce pro členy</RouterLink>
 
+            <RouterLink v-if="user && user.role === 'admin'" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'admin'}">Administrace</RouterLink>
+
         </div>
 
         <div class="navbar-end">

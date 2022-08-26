@@ -22,7 +22,9 @@ services:
       - ./docker/php/data:/var/www/data
 
   db:
-    image: mysql
+    build:
+      context: docker/db
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 3306:3306
