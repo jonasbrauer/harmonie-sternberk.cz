@@ -77,7 +77,7 @@ export default {
         events: [], // all events
         showedEvents: [],
         eventTypes: [],
-        eventTypesFilters: ['concert', 'tour'],
+        eventTypesFilters: [],
         eventTypesMap: {
           concert: "Koncerty",
           rehearsal: "Zkoušky",
@@ -127,6 +127,10 @@ export default {
                   .filter(event => event.datetime && new Date(event.datetime) > zero)
                   .sort((a, b) => a.datetime > b.datetime);
               this.eventTypes = new Set(this.events.map(e => e.type));
+              if (this.eventTypes.has('rehearsal')) {
+                this.eventTypesFilters = ['concert', 'tour'];
+              }
+
               this.filterEvents();
             })
       },
