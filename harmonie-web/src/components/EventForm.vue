@@ -218,13 +218,24 @@ export default {
       if (this.inputEvent.datetime) {
         const split = this.inputEvent.datetime.split(" ");
         this.dateStart = split[0];
-        this.timeStart = split[1];
+        var timeString = split[1];
+        if(timeString.split(":").length > 2) {
+          const timeSplit = timeString.split(":");
+          timeString = `${timeSplit[0]}:${timeSplit[1]}`;
+        }
+        this.timeStart = timeString;
       }
       if (this.inputEvent.datetime_end) {
         this.hasEndDate = true;
         const split = this.inputEvent.datetime_end.split(" ");
         this.dateEnd = split[0];
-        this.timeEnd = split[1];
+        // Trim seconds
+        var timeString = split[1];
+        if(timeString.split(":").length > 2) {
+          const timeSplit = timeString.split(":");
+          timeString = `${timeSplit[0]}:${timeSplit[1]}`;
+        }
+        this.timeEnd = timeString;
       }
     }
   }

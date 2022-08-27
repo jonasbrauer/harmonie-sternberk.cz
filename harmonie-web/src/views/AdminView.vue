@@ -18,16 +18,16 @@
       </h1>
       <transition  name="slide-fade" mode="out-in">
         <!-- buttons -->
-        <span v-if="!newEventForm">
+        <span v-if="!newEventForm" class="level is-mobile level-left">
           <p @click="eventTemplate = null; newEventForm = !newEventForm" class="button mr-1">
             <span class="icon mr-1">
               <i class="fa-solid fa-plus"></i>
-            </span>Přidat událost
+            </span>Nová událost
           </p>
           <p @click="eventTemplate = rehearsalTemplate; newEventForm = !newEventForm" class="button mr-1">
             <span class="icon mr-1">
               <i class="fa-solid fa-plus"></i>
-            </span>Přidat zkoušku
+            </span>Nová zkouška
           </p>
         </span>
         <!-- togglable form -->

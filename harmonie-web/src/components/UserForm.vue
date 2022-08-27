@@ -108,7 +108,6 @@
         <button @click="$emit('cancel')" class="button is-link is-light">Zrušit</button>
       </div>
     </div>
-    {{ user }}
   </div>
 </template>
 
