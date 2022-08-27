@@ -19,11 +19,17 @@ function get_user($username) {
     exit();
   }
   
-  $sql = "SELECT * FROM users WHERE username = '$username';";
+  $username = mysqli_real_escape_string($connection, $username);
+  if (strpos($username, '@') == -1) {
+    $sql = "SELECT * FROM users WHERE username = '$username';";
+  } else {
+    $sql = "SELECT * FROM users WHERE email = '$username';";
+  }
+  
   try {
     $result = $connection->query($sql);
   } catch (Exception $e) {
-    http_response_code(401);
+    http_response_code(402);
     exit();
   }
   $connection->close();

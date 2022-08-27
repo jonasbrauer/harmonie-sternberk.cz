@@ -154,6 +154,8 @@ export default {
         this.allUsers.map(u => u.username).indexOf(this.user.username) !== -1
       ) {
         this.invalidUsername  = "Člen se tímto jménem už existuje";
+      } else if (this.user.username.indexOf('@') !== -1) {
+        this.invalidUsername  = "Jméno nesmí obsahovat '@'";
       } else {
         this.invalidUsername  = false;
       }

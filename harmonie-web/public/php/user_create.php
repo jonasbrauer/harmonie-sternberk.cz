@@ -3,6 +3,20 @@
 include 'require_admin.php';
 
 
+function validateUsername($mysqli, $string) {
+  if (isset($string) && strrpos($string, '@') === -1) {
+    return mysqli_real_escape_string($mysqli, $string);
+  }
+  return null;
+}
+
+function validateEmail($mysqli, $string) {
+  if (isset($string) && strrpos($string, '@') !== -1) {
+    return mysqli_real_escape_string($mysqli, $string);
+  }
+  return null;
+}
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
   http_response_code(405);
   exit();
@@ -11,8 +25,8 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $connection = get_connection();
 
-$username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : null;
-$email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : null;
+$username = validateUsername($connection, $_POST['username']);
+$email = validateEmail($connection, $_POST['email']);
 $password = isset($_POST['password']) ? mysqli_real_escape_string($connection, $_POST['password']) : null;
 $role = isset($_POST['role']) ? mysqli_real_escape_string($connection, $_POST['role']) : null;
 
