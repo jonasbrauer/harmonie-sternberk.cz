@@ -69,17 +69,34 @@
           <i class="fa-solid fa-plus"></i>
         </span>Přidat nového člena
       </p>
-      <UserForm v-else :roles="roles" :allUsers="users" @cancel="newUserForm = !newUserForm" @submit="postUser"/>
+      <UserForm v-else admin="true" :roles="roles" :allUsers="users" @cancel="newUserForm = !newUserForm" @submit="postUser"/>
       <p v-if="newUserError" class="help is-danger">{{ newUserError }}</p>
       </transition>
 
       <hr>
-      <div class="column" v-for="(user, key) in users" :key="key + 'admin' + user.username">
+      <div class="column" v-for="(user, key) in unvalidatedUsers" :key="key + 'admin' + user.username">
+        <UserLevel :user=user @validate="validateUser(user)" @delete="deleteUser" @edit="clickEditUser(user.username)"/>
+
+        <transition  name="slide-fade" mode="out-in">
+        <UserForm
+          v-if="user.username === edittingUser"
+          admin="true"
+          :inputUser="user"
+          :roles="roles"
+          :allUsers="users"
+          @cancel="edittingUser = null"
+          @submit="postUser"
+        />
+        </transition>
+      </div>
+
+      <div class="column" v-for="(user, key) in validatedUsers" :key="key + 'admin' + user.username">
         <UserLevel :user=user @delete="deleteUser" @edit="clickEditUser(user.username)"/>
 
         <transition  name="slide-fade" mode="out-in">
         <UserForm
           v-if="user.username === edittingUser"
+          admin="true"
           :inputUser="user"
           :roles="roles"
           :allUsers="users"
@@ -153,6 +170,7 @@ export default {
 
           events: [],
           users: [],
+
           roles: [],
           crumbs: [
               ['home', 'Domů'], ['admin', 'Administrace']
@@ -165,6 +183,15 @@ export default {
             type: 'rehearsal',
           }
         }
+    },
+
+    computed: {
+      validatedUsers() {
+        return this.users.filter(u => u.validated);
+      },
+      unvalidatedUsers() {
+        return this.users.filter(u => !u.validated);
+      }
     },
 
     created() {
@@ -193,6 +220,11 @@ export default {
                this.edittingUser = null;
                this.getUsers();
               })
+      },
+
+      validateUser(userData) {
+        userData.validated = true;
+        this.postUser(userData);
       },
 
       postEvent(eventData) {

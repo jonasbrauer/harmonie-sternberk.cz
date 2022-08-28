@@ -11,6 +11,7 @@ CREATE TABLE users(
   username VARCHAR(20) NOT NULL,
   password VARCHAR(100) NOT NULL,
   role ENUM('member', 'admin') DEFAULT 'member',
+  validated BIT,
   email VARCHAR(100),
   PRIMARY KEY(id)
 );

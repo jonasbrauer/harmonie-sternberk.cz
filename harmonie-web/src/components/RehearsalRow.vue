@@ -4,8 +4,12 @@
   <nav class="columns">
 
     <!-- DATE -->
-    <div class="column is-3 is-flex is-align-items-center is-justify-content-center">
+    <div class="column is-flex is-align-items-center is-justify-content-center">
       <DatetimeTile :date="event.datetime" :isEvent="event.type === 'concert'"/>
+      <span v-if="event.datetime_end" class="icon">
+        <i class="fa-solid fa-arrow-right"></i>
+      </span>
+      <DatetimeTile v-if="event.datetime_end" :date="event.datetime_end" :isEvent="event.type === 'concert'"/>
     </div>
 
     <!-- ICON -->
@@ -16,8 +20,6 @@
       <span v-else-if="event.type === 'tour'" class="icon mr-2" style="color: #ccc">
         <i class="fa-solid fa-plane-departure"></i>
       </span>
-      <!-- <span v-else class="icon mr-2" style="max-height: 0px">
-      </span> -->
     </div>
 
     <!-- TEXT -->

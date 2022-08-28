@@ -30,7 +30,7 @@
     </div>
 
     <!-- LINK -->
-    <div class="field">
+    <!-- <div class="field">
       <label class="label">Odkaz</label>
       <div class="control has-icons-left">
         <input class="input" v-model="event.link" type="text" placeholder="odkaz na událost">
@@ -38,7 +38,7 @@
           <i class="fa-solid fa-link"></i>
         </span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Facebook link -->
     <div class="field">

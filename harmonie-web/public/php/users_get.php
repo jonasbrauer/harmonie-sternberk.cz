@@ -12,7 +12,7 @@ include 'require_admin.php';
 
 function get_users() {
   $connection = get_connection();
-  $sql = "SELECT id, username,role, email FROM users;";
+  $sql = "SELECT id, username,role, email, validated FROM users;";
   try {
     $result = $connection->query($sql);
   } catch (Exception $e) {
@@ -22,6 +22,7 @@ function get_users() {
 
   $events = array();
   while($row = $result->fetch_assoc()) {
+    $row['validated'] = (bool) $row['validated'];
     $events[] = $row;
   }
   return $events;

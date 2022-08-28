@@ -20,10 +20,10 @@ function get_user($username) {
   }
   
   $username = mysqli_real_escape_string($connection, $username);
-  if (strpos($username, '@') == -1) {
-    $sql = "SELECT * FROM users WHERE username = '$username';";
-  } else {
+  if (strpos($username, '@')) {
     $sql = "SELECT * FROM users WHERE email = '$username';";
+  } else {
+    $sql = "SELECT * FROM users WHERE username = '$username';";
   }
   
   try {
@@ -44,6 +44,12 @@ function get_user($username) {
 function validate_password($username, $pass) {
   // Validate supplied password with the hash from the database.
   $user = get_user($username);
+
+  if (!$user['validated']) {
+    http_response_code(401);
+    exit();
+  }
+
   if (isset($user) && password_verify($pass, $user['password'])) {
     return true;
   } else {
@@ -94,7 +100,7 @@ function validate_cookie() {
 function login_post() {
   // ...OR initiate login procedure - expect POST data: { username, password }
   if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(401);
+    http_response_code(405);
     exit();
   }
   $_POST = json_decode(file_get_contents('php://input'), true);

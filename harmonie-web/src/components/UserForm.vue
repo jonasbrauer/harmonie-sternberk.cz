@@ -2,12 +2,12 @@
   <div>
 
     <div class="field">
-      <label class="label">Uživatelské jméno</label>
+      <label class="label">Jméno a příjmení</label>
       <div class="control has-icons-left has-icons-right">
         <input
           :class="{input:true, 'is-danger': invalidUsername, 'is-success': !invalidUsername && user.username}"
           type="text"
-          placeholder="uživatelské jméno"
+          placeholder="jméno a příjmení"
           v-model="user.username"
           v-on:input="validateUsername"
         >
@@ -85,7 +85,7 @@
       <p v-if="passwordsDontMatch" class="help is-danger">Hesla nesedí</p>
     </div>
 
-    <div class="field">
+    <div v-if="admin" class="field">
       <label class="label">Oprávnění</label>
       <div class="control">
         <div class="select">
@@ -100,8 +100,8 @@
       <div class="control">
         <button 
           :disabled="invalidUsername || invalidEmail || invalidPassword || passwordsDontMatch"
-          @click="$emit('submit', user)"
-          class="button is-link"
+          @click="submit"
+          :class="{button: true, 'is-link': true, 'is-loading': loading}"
         >Odeslat</button>
       </div>
       <div class="control">
@@ -114,7 +114,7 @@
 <script>
 export default {
 
-  props: ['inputUser', 'roles', 'allUsers'],
+  props: ['inputUser', 'roles', 'allUsers', 'admin', 'loading'],
 
   data() {
     return {
@@ -140,7 +140,10 @@ export default {
       this.$emit("cancel");
     },
     submit() {
-      console.log(this.user);
+      if (this.user.password === "placeholder") {
+        delete this.user.password;
+        delete this.user.password2;
+      }
       this.$emit("submit", this.user);
     },
 
@@ -162,7 +165,7 @@ export default {
 
     validateEmail() {
       // allow empty email
-      if (this.user.email && this.user.email.indexOf("@") === -1) {
+      if (this.user.email && this.user.email.split("@").filter(it => it.length > 0).length !== 2) {
         this.invalidEmail  = true;
       } else {
         this.invalidEmail  = false;
