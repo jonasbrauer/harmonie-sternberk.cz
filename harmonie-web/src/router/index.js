@@ -8,6 +8,7 @@ import GalleryView from '../views/GalleryView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import MembersView from '../views/MembersView.vue'
 import AdminView from '../views/AdminView.vue'
+import RequestAccessView from  '../views/RequestAccessView.vue'
 
 
 const router = createRouter({
@@ -53,6 +54,11 @@ const router = createRouter({
       path: '/administrace',
       name: 'admin',
       component: AdminView,
+    },
+    {
+      path: '/novyclen',
+      name: 'newmember',
+      component: RequestAccessView,
     },
     { 
       path: '/:catchAll(.*)', 

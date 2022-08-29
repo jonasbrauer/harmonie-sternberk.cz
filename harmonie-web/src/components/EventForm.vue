@@ -30,7 +30,7 @@
     </div>
 
     <!-- LINK -->
-    <div class="field">
+    <!-- <div class="field">
       <label class="label">Odkaz</label>
       <div class="control has-icons-left">
         <input class="input" v-model="event.link" type="text" placeholder="odkaz na událost">
@@ -38,7 +38,7 @@
           <i class="fa-solid fa-link"></i>
         </span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Facebook link -->
     <div class="field">
@@ -145,13 +145,19 @@
       </div>
     </div>
 
+    <transition name="slide-fade">
+    <article v-if="error" class="message is-danger">
+      <div class="message-body">Ups, chybka se vloudila.</div>
+    </article>
+    </transition>
+
   </div>
 </template>
 
 <script>
 export default {
 
-  props: ['inputEvent'],
+  props: ['inputEvent', 'error'],
 
   data() {
     return {
@@ -218,13 +224,24 @@ export default {
       if (this.inputEvent.datetime) {
         const split = this.inputEvent.datetime.split(" ");
         this.dateStart = split[0];
-        this.timeStart = split[1];
+        var timeString = split[1];
+        if(timeString.split(":").length > 2) {
+          const timeSplit = timeString.split(":");
+          timeString = `${timeSplit[0]}:${timeSplit[1]}`;
+        }
+        this.timeStart = timeString;
       }
       if (this.inputEvent.datetime_end) {
         this.hasEndDate = true;
         const split = this.inputEvent.datetime_end.split(" ");
         this.dateEnd = split[0];
-        this.timeEnd = split[1];
+        // Trim seconds
+        var timeString = split[1];
+        if(timeString.split(":").length > 2) {
+          const timeSplit = timeString.split(":");
+          timeString = `${timeSplit[0]}:${timeSplit[1]}`;
+        }
+        this.timeEnd = timeString;
       }
     }
   }

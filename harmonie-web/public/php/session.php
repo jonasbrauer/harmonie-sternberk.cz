@@ -43,10 +43,14 @@ function execute_sql($sql, $connection=null) {
   }
 
   try {
-    return $connection->query($sql);
+    $result = $connection->query($sql);
+    if (!$result) {
+      http_response_code(400);
+      exit();
+    }
 
   } catch (Exception $e) {
-    http_response_code(402);
+    http_response_code(500);
     header('Content-Type: application/json');
     echo json_encode($e->getMessage(), true);
     exit();

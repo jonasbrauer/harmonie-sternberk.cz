@@ -77,7 +77,7 @@ export default {
         events: [], // all events
         showedEvents: [],
         eventTypes: [],
-        eventTypesFilters: ['concert', 'tour'],
+        eventTypesFilters: [],
         eventTypesMap: {
           concert: "Koncerty",
           rehearsal: "Zkoušky",
@@ -96,7 +96,7 @@ export default {
           // a couple of secs reroute to home view.
           this.$router.push({name:'home'})
         }
-      }, 10000);
+      }, 5000);
 
       this.getEvents()
     },
@@ -115,7 +115,7 @@ export default {
       filterEvents() {
         this.showedEvents = this.events
           .filter(event => this.eventTypesFilters.indexOf(event.type) == -1)
-          .sort((a, b) => a.datetime > b.datetime);
+          .sort((a, b) => a.datetime > b.datetime ? 1 : -1);
       },
 
       getEvents() {
@@ -125,8 +125,12 @@ export default {
            .then(res => {
               this.events = res.data
                   .filter(event => event.datetime && new Date(event.datetime) > zero)
-                  .sort((a, b) => a.datetime > b.datetime);
+                  .sort((a, b) => a.datetime > b.datetime ? 1 : -1);
               this.eventTypes = new Set(this.events.map(e => e.type));
+              if (this.eventTypes.has('rehearsal')) {
+                this.eventTypesFilters = ['concert', 'tour'];
+              }
+
               this.filterEvents();
             })
       },

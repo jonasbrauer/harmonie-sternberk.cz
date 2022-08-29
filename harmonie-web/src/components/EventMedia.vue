@@ -6,7 +6,8 @@
 
     <div class="media-content">
     <p >
-        <small>{{ event && event.datetime && new Date(event.datetime).getHours() }}:00</small> - {{ event && event.location }}
+        <small>{{ event && event.datetime && new Date(event.datetime).getHours() }}:00</small>
+        <span v-if="event && event.location"> - {{ event.location }}</span>
         <br>
         <strong class="is-size-5">{{ event && event.title }}</strong> <small>{{ event && event.link }}</small>
         <br>

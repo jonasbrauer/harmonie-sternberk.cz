@@ -18,31 +18,38 @@
       </h1>
       <transition  name="slide-fade" mode="out-in">
         <!-- buttons -->
-        <span v-if="!newEventForm">
+        <span v-if="!newEventForm" class="level is-mobile level-left">
           <p @click="eventTemplate = null; newEventForm = !newEventForm" class="button mr-1">
             <span class="icon mr-1">
               <i class="fa-solid fa-plus"></i>
-            </span>Přidat událost
+            </span>Nová událost
           </p>
           <p @click="eventTemplate = rehearsalTemplate; newEventForm = !newEventForm" class="button mr-1">
             <span class="icon mr-1">
               <i class="fa-solid fa-plus"></i>
-            </span>Přidat zkoušku
+            </span>Nová zkouška
           </p>
         </span>
-        <!-- togglable form -->
-        <EventForm v-else :inputEvent="eventTemplate" @cancel="newEventForm = !newEventForm" @submit="postEvent"/>
+        <!-- toggleable NEW-EVENT form -->
+        <EventForm
+          v-else
+          :inputEvent="eventTemplate"
+          :error="eventFormError"
+          @cancel="newEventForm = !newEventForm"
+          @submit="postEvent"
+        />
         <p v-if="newEventError" class="help is-danger">{{ newEventError }}</p>
       </transition>
 
       <hr>
 
       <div class="column" v-for="(event, key) in events" :key="key + 'admineventrow' + event.id">
-        <EventLevel :event=event @delete="deleteEvent" @edit="clickEditEvent(event.id)"/>
+        <EventLevel :event=event @delete="deleteEvent(event.id)" @edit="clickEditEvent(event.id)"/>
          <transition  name="slide-fade" mode="out-in">
         <EventForm
           v-if="event.id === edittingEvent"
           :inputEvent="event"
+          :error="eventFormError"
           @cancel="edittingEvent = null"
           @submit="postEvent"
         />
@@ -69,28 +76,54 @@
           <i class="fa-solid fa-plus"></i>
         </span>Přidat nového člena
       </p>
-      <UserForm v-else :roles="roles" :allUsers="users" @cancel="newUserForm = !newUserForm" @submit="postUser"/>
+      <UserForm
+        v-else admin="true"
+        :roles="roles"
+        :allUsers="users"
+        :error="userFormError"
+        @cancel="newUserForm = !newUserForm, userFormError = false"
+        @submit="postUser"
+      />
       <p v-if="newUserError" class="help is-danger">{{ newUserError }}</p>
       </transition>
 
       <hr>
-      <div class="column" v-for="(user, key) in users" :key="key + 'admin' + user.username">
-        <UserLevel :user=user @delete="deleteUser" @edit="clickEditUser(user.username)"/>
+      <div class="column" v-for="(user, key) in unvalidatedUsers" :key="key + 'admin' + user.username">
+        <UserLevel :user=user @validate="validateUser(user)" @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)" />
 
         <transition  name="slide-fade" mode="out-in">
         <UserForm
           v-if="user.username === edittingUser"
+          admin="true"
           :inputUser="user"
           :roles="roles"
           :allUsers="users"
-          @cancel="edittingUser = null"
+          :error="userFormError"
+          @cancel="edittingUser = null, userFormError = false"
+          @submit="postUser"
+        />
+        </transition>
+      </div>
+
+      <div class="column" v-for="(user, key) in validatedUsers" :key="key + 'admin' + user.username">
+        <UserLevel :user=user @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)"/>
+
+        <transition  name="slide-fade" mode="out-in">
+        <UserForm
+          v-if="user.username === edittingUser"
+          admin="true"
+          :inputUser="user"
+          :roles="roles"
+          :allUsers="users"
+          :error="userFormError"
+          @cancel="edittingUser = null, userFormError = false"
           @submit="postUser"
         />
         </transition>
       </div>
     </section>
 
-    <div v-if="users.length > 4" class="has-text-centered my-5">
+    <div v-if="users.length > 10" class="has-text-centered my-5">
       <small class="ml-2 is-size-6">
         <a @click="scrollInto('top')">
           Nahoru
@@ -144,15 +177,16 @@ export default {
     data() {
         return {
           newUserForm: false,
-          newUserError: null,
+          userFormError: null,
           edittingUser: null,
 
           newEventForm: false,
-          newEventError: false,
+          eventFormError: false,
           edittingEvent: null,
 
           events: [],
           users: [],
+
           roles: [],
           crumbs: [
               ['home', 'Domů'], ['admin', 'Administrace']
@@ -167,6 +201,15 @@ export default {
         }
     },
 
+    computed: {
+      validatedUsers() {
+        return this.users.filter(u => u.validated);
+      },
+      unvalidatedUsers() {
+        return this.users.filter(u => !u.validated);
+      }
+    },
+
     created() {
       setTimeout(() => {
         if(!this.user || this.user.role != 'admin') {
@@ -174,7 +217,7 @@ export default {
           // a couple of secs reroute to home view.
           this.$router.push({name:'home'})
         }
-      }, 10000);
+      }, 5000);
 
       this.getUsers();
       this.getEvents();
@@ -186,13 +229,21 @@ export default {
           userData = toRaw(userData);
         }
         axios.post("/php/user_create.php", userData)
-             .catch(err => this.newUserError = err.data)
              .then(res => {
-               this.newUserError = null;
+               this.userFormError = null;
                this.newUserForm = false;
                this.edittingUser = null;
                this.getUsers();
               })
+              .catch(err => {
+               console.error(err);
+               this.userFormError = "Ups, chybka se vloudila.";
+             })
+      },
+
+      validateUser(userData) {
+        userData.validated = true;
+        this.postUser(userData);
       },
 
       postEvent(eventData) {
@@ -200,29 +251,33 @@ export default {
           eventData = toRaw(eventData);
         }
         axios.post("/php/event_create.php", eventData)
-             .catch(err => this.newUserError = err.data)
              .then(res => {
-               this.newEventError = null;
+               this.eventFormError = null;
                this.newEventForm = false;
                this.edittingEvent = null;
                this.getEvents();
               })
+              .catch(err => {
+               console.error(err);
+               this.eventFormError = "Ups, chybka se vloudila.";
+             })
       },
 
       deleteEvent(event_id) {
         axios.post('/php/event_delete.php', {id: event_id}) 
-             .catch(err => {})
+             .catch(err => console.error(err))
              .then(res => this.getEvents())
       },
 
-      deleteUser(username) {
-        axios.post('/php/user_delete.php', {username: username}) 
-             .catch(err => {})
+      deleteUser(userId) {
+        axios.post('/php/user_delete.php', {id: userId}) 
+             .catch(err => console.error(err))
              .then(res => this.getUsers())
       },
 
       getUsers() {
         axios.get('/php/users_get.php')
+           .catch(err => console.error(err))
            .then(res => {
              this.users = res.data;
              this.roles = [... new Set(this.users.map(u => u.role))];
@@ -231,12 +286,15 @@ export default {
 
       getEvents() {
         axios.get('/php/events_get.php')
-           .then(res => {
-             this.events = res.data;
-            })
+          .catch(err => console.error(err))
+          .then(res => {
+            this.events = res.data;
+          })
       },
 
       clickEditUser(username) {
+        this.userFormError = false;
+        this.newUserForm = false;
         if (this.edittingUser === username) {
           this.edittingUser = null;
         } else {
@@ -245,6 +303,8 @@ export default {
       },
 
       clickEditEvent(eventId) {
+        this.eventFormError = false;
+        this.newEventForm = false;
         if (this.edittingEvent === eventId) {
           this.edittingEvent = null;
         } else {

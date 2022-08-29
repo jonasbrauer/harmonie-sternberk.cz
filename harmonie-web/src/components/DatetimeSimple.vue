@@ -1,6 +1,6 @@
 <template>
   <h3 class="is-6">
-    {{weekday}} {{ date.getDate() }}.{{ date.getMonth() }}. {{ date.getUTCFullYear() }}
+    {{weekday}} {{ date.getDate() }}.{{ date.getMonth() + 1 }}. {{ date.getUTCFullYear() }}
     <span v-if="date.getHours() !== 0">v {{ date.getHours()}}h</span>
   </h3>
 </template>
@@ -11,8 +11,6 @@ export default {
 
   data() {
     return {
-      date: null,
-      weekday: null,
       days: [
           'ne',
           'po',
@@ -26,9 +24,13 @@ export default {
     }
   },
 
-  created() {
-    this.date = new Date(this.datetime);
-    this.weekday = this.days[this.date.getDay()];
+  computed: {
+    date() {
+      return new Date(this.datetime);
+    },
+    weekday() {
+      return this.days[this.date.getDay()];
+    }
   }
 }
 </script>

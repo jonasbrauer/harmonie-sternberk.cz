@@ -33,8 +33,8 @@ export default {
                 'středa',
                 'čtvrtek',
                 'pátek',
-                'so',
-                'ne',
+                'sobota',
+                'neděle',
             ],
 
             months: [

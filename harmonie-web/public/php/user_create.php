@@ -1,6 +1,7 @@
 <?php
 
 include 'require_admin.php';
+include 'user.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -11,18 +12,20 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $connection = get_connection();
 
-$username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : null;
-$email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : null;
+$username = isset($_POST['username']) ? validateUsername($connection, $_POST['username']) : null;
+$email = isset($_POST['email']) ? validateEmail($connection, $_POST['email']) : null;
 $password = isset($_POST['password']) ? mysqli_real_escape_string($connection, $_POST['password']) : null;
 $role = isset($_POST['role']) ? mysqli_real_escape_string($connection, $_POST['role']) : null;
 
 $password_hash = isset($password) ? password_hash($password, PASSWORD_DEFAULT, ['cost' => 10]) : null;
 
-//events(title, subtitle, link, facebook, datetime, "
+// events(title, subtitle, link, facebook, datetime, "
 if (isset($_POST['id'])) {
   // EDIT
   $id = mysqli_real_escape_string($connection, $_POST['id']);
-  $exp = (isset($title) ? "username = '$username', " : "")
+  $validated = $_POST['validated'] ? "1" : "0";
+  $exp = (isset($validated) ? "validated = $validated, " : "")
+  . (isset($username) ? "username = '$username', " : "")
   . (isset($email) ? "email = '$email', " : "")
   . (isset($password_hash) ? "password = '$password_hash', " : "")
   . (isset($role) ? "role = '$role', " : "");
@@ -39,19 +42,11 @@ if (isset($_POST['id'])) {
   $keys = (isset($email) ? "email, " : "") . (isset($role) ? "role, " : "");
   $values = (isset($email) ? "'$email', " : "") . (isset($role) ? "'$role', " : "");
 
-  $sql = "INSERT INTO users(username, password, " . substr($keys, 0, -2) . ")"
-      . " VALUES ('$username', '$password_hash'," . substr($values, 0, -2) . ");";
+  $sql = "INSERT INTO users(username, password, validated, " . substr($keys, 0, -2) . ")"
+      . " VALUES ('$username', '$password_hash', 1, " . substr($values, 0, -2) . ");";
 }
 
-try {
-  $result = $connection->query($sql);
-} catch (Exception $e) {
-  http_response_code(402);
-  header('Content-Type: application/json');
-  echo json_encode($e, true);
-} finally {
-  $connection->close();
-}
+execute_sql($sql, $connection);
 
 http_response_code(201);
 exit();
