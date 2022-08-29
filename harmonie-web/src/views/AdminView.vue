@@ -217,7 +217,7 @@ export default {
           // a couple of secs reroute to home view.
           this.$router.push({name:'home'})
         }
-      }, 10000);
+      }, 5000);
 
       this.getUsers();
       this.getEvents();

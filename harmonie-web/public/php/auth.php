@@ -11,7 +11,7 @@ include 'session.php';
 define('SECRET_WORD', 'bibfir%%MyH9u6qh4fv9iQAF6n$2!3n9wppLGc%^7NSpyEVrRnn@^DNhAr');
 
 
-function get_user($username) {
+function get_user($username_or_email) {
   // Query user data from the database
   $connection=get_connection();
   if ($connection->connect_errno) {
@@ -19,13 +19,13 @@ function get_user($username) {
     exit();
   }
   
-  $username = mysqli_real_escape_string($connection, $username);
+  $username = mysqli_real_escape_string($connection, $username_or_email);
   if (strpos($username, '@')) {
     $sql = "SELECT * FROM users WHERE email = '$username';";
   } else {
     $sql = "SELECT * FROM users WHERE username = '$username';";
   }
-  
+
   try {
     $result = $connection->query($sql);
   } catch (Exception $e) {
@@ -60,7 +60,7 @@ function validate_password($username, $pass) {
 function logout() {
   // LOG-OUT on DELETE
   if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-    unset($_SESSION['login']);
+    session_unset();
     setcookie('rememberme', '', time() - 3600);
     echo "Logged out.";
     exit();
@@ -78,7 +78,7 @@ function validate_cookie() {
     }
 
     // WRONG SESSION COOKIE
-    unset($_SESSION['login']);
+    session_unset();
     return null;
   }
 
@@ -91,7 +91,7 @@ function validate_cookie() {
     }
 
     // WRONG REMEMBER ME COOKIE
-    unset($_COOKIE['rememberme']);
+    setcookie('rememberme', '', time() - 3600);
     return null;
   }
 
@@ -100,7 +100,7 @@ function validate_cookie() {
 function login_post() {
   // ...OR initiate login procedure - expect POST data: { username, password }
   if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(401);
+    http_response_code(405);
     exit();
   }
   $_POST = json_decode(file_get_contents('php://input'), true);
