@@ -16,6 +16,7 @@
           </a>
         </small>
       </h1>
+
       <transition  name="slide-fade" mode="out-in">
         <!-- buttons -->
         <span v-if="!newEventForm" class="level is-mobile level-left">
@@ -43,6 +44,8 @@
 
       <hr>
 
+      <transition name="slide-fade" mode="out-in">
+      <div v-if="events && events.length > 0">
       <div class="column" v-for="(event, key) in events" :key="key + 'admineventrow' + event.id">
         <EventLevel :event=event @delete="deleteEvent(event.id)" @edit="clickEditEvent(event.id)"/>
          <transition  name="slide-fade" mode="out-in">
@@ -55,6 +58,9 @@
         />
         </transition>
       </div>
+      </div>
+      <LoadingSection v-else :loading="true" />
+      </transition>
       
     </section>
 
@@ -88,6 +94,9 @@
       </transition>
 
       <hr>
+
+      <transition name="slide-fade" mode="out-in">
+      <div v-if="users && users.length > 0">
       <div class="column" v-for="(user, key) in unvalidatedUsers" :key="key + 'admin' + user.username">
         <UserLevel :user=user @validate="validateUser(user)" @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)" />
 
@@ -104,7 +113,12 @@
         />
         </transition>
       </div>
+      </div>
+      <LoadingSection v-else :loading="true" />
+      </transition><!-- END unvalidated users -->
 
+      <transition name="slide-fade" mode="out-in">
+      <div v-if="users && users.length > 0">
       <div class="column" v-for="(user, key) in validatedUsers" :key="key + 'admin' + user.username">
         <UserLevel :user=user @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)"/>
 
@@ -121,6 +135,9 @@
         />
         </transition>
       </div>
+      </div>
+      </transition><!-- END validated users -->
+
     </section>
 
     <div v-if="users.length > 10" class="has-text-centered my-5">
@@ -161,16 +178,17 @@
 <script>
 import { isProxy, toRaw } from 'vue';
 import axios from 'axios';
-import Breadcrumbs from '../components/Breadcrumbs.vue'
-import UserLevel from '../components/UserLevel.vue'
-import UserForm from '../components/UserForm.vue'
-import RehearsalRow from '../components/RehearsalRow.vue'
-import EventLevel from '../components/EventLevel.vue'
-import EventForm from '../components/EventForm.vue'
+import Breadcrumbs from '../components/Breadcrumbs.vue';
+import UserLevel from '../components/UserLevel.vue';
+import UserForm from '../components/UserForm.vue';
+import RehearsalRow from '../components/RehearsalRow.vue';
+import EventLevel from '../components/EventLevel.vue';
+import EventForm from '../components/EventForm.vue';
+import LoadingSection from '../components/LoadingSection.vue';
 
 export default {
 
-    components: { Breadcrumbs, UserLevel, UserForm, RehearsalRow, EventLevel, EventForm },
+    components: { Breadcrumbs, UserLevel, UserForm, RehearsalRow, EventLevel, EventForm, LoadingSection },
 
     inject: ['user'],
 
@@ -203,10 +221,14 @@ export default {
 
     computed: {
       validatedUsers() {
-        return this.users.filter(u => u.validated);
+        var res = this.users.filter(u => u.validated);
+        res.sort((a, b) => a.username.localeCompare(b.username))
+        return res;
       },
       unvalidatedUsers() {
-        return this.users.filter(u => !u.validated);
+        const res = this.users.filter(u => !u.validated);
+        res.sort((a, b) => a.username.localeCompare(b.username))
+        return res;
       }
     },
 

@@ -40,7 +40,7 @@
     <hr>
     </section>
 
-    <div class="section pt-3 has-text-center">
+    <div v-if="upcomingEvents && upcomingEvents.length > 0" class="section pt-3 has-text-center">
       <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event"/>
 
       <div class="has-text-centered pt-4">
@@ -51,7 +51,7 @@
           </RouterLink>
       </div>
     </div>
-    
+    <LoadingSection v-else :loading="true" />
     
     </div>
     <div class="section p-0 pb-5 is-small has-text-centered">
@@ -64,10 +64,11 @@
 
 <script>
 import EventMedia from '../components/EventMedia.vue';
+import LoadingSection from '../components/LoadingSection.vue';
 
 export default {
 
-  components: { EventMedia },
+  components: { EventMedia, LoadingSection },
 
   inject: ['events'],
 

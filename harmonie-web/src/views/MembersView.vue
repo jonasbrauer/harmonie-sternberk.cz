@@ -33,9 +33,12 @@
 
     <hr class="mt-1">
 
-    <section class="section pt-0">
-      <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
-    </section>
+    <transition name="slide-fade" mode="out-in">
+      <section v-if="events && events.length > 0" class="section pt-0">
+        <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
+      </section>
+      <LoadingSection v-else :loading="true" />
+    </transition>
 
   </div>
 
@@ -63,12 +66,13 @@
 
 <script>
 import axios from 'axios';
-import Breadcrumbs from '../components/Breadcrumbs.vue'
-import RehearsalRow from '../components/RehearsalRow.vue'
+import Breadcrumbs from '../components/Breadcrumbs.vue';
+import RehearsalRow from '../components/RehearsalRow.vue';
+import LoadingSection from '../components/LoadingSection.vue';
 
 export default {
 
-    components: { Breadcrumbs, RehearsalRow },
+    components: { Breadcrumbs, RehearsalRow, LoadingSection },
 
     inject: ['user'],
 
