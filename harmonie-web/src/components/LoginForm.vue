@@ -27,13 +27,13 @@
 
     <!-- REMEMBER ME -->
     <div class="field">
-        <div class="control">
-            <label class="checkbox">
-            <input v-model="credentials.rememberme" type="checkbox" class="mr-1">
-            Pamatovat příhlášení
-            </label>
-        </div>
-        </div>
+      <div class="control">
+          <label class="checkbox">
+          <input v-model="credentials.rememberme" type="checkbox" class="mr-1">
+          Pamatovat příhlášení
+          </label>
+      </div>
+    </div>
 
     <button @click="$emit('login', credentials)"
         :class="{

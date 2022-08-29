@@ -16,11 +16,12 @@ CREATE TABLE users(
   PRIMARY KEY(id)
 );
 
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `email`) VALUES
-(1,	'john',	'$2y$10$Tmw0idHeNT.DCboYxlATyOnB8q88AhNdyUf5N8oSzMOVgbQeFpOaC',	'member',	''),
-(2,	'jan',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'member',	''),
-(3,	'dylan',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'admin',	'dylan@gmail.com'),
-(4,	'Sebastián Skočdopole',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'member',	't.smidova@seznam.cz');
+INSERT INTO `users` (`username`, `password`, `role`, `email`, `validated`) VALUES
+('admin',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'admin',	'admin@gmail.com', 1);
+
+INSERT INTO `users` (`username`, `password`, `role`, `email`) VALUES
+('jan',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'member',	''),
+('Sebastián Skočdopole',	'$2y$10$Gu5pGJrnl4PQIlmXIyYDO.NRzzNay7VHXXKwYkNQQcCJI0A0Q.jG2',	'member',	'sebs@seznam.cz');
 
 
 
@@ -47,4 +48,4 @@ INSERT INTO `events` (`id`, `title`, `subtitle`, `likes`, `link`, `facebook`, `d
 (4,	'Galakoncert',	'Tradiční výroční koncert',	0,	'@Šternberk',	NULL,	'2023-12-13 18:00:00',	NULL,	NULL,	NULL),
 (5,	'Galakoncert',	'Tradiční výroční koncert',	0,	'@Šternberk',	NULL,	'2024-12-13 18:00:00',	NULL,	NULL,	NULL),
 (6,	'Chrámový koncert',	NULL,	0,	'@Kostel Zvěstování Panny Marie',	NULL,	'2022-04-30 19:00:00',	NULL,	NULL,	NULL),
-(7,	'Zkouška',	NULL,	0,	NULL,	NULL,	'2022-08-15 16:00:00',	'rehearsal',	'sál ZUŠ Šternberk',	NULL);
+(7,	'Zkouška',	NULL,	0,	NULL,	NULL,	'2023-08-15 16:00:00',	'rehearsal',	'sál ZUŠ Šternberk',	NULL);

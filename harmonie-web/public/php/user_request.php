@@ -15,11 +15,11 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $connection = get_connection();
 
-$username = validateUsername($connection, $_POST['username']);
+$username = isset($_POST['username']) ? validateUsername($connection, $_POST['username']) : null;
 $role = 'member'; // ALWAYS force member - admins can adjust later
 $password = isset($_POST['password']) ? mysqli_real_escape_string($connection, $_POST['password']) : null;
 
-$email = validateEmail($connection, $_POST['email']);
+$email = isset($_POST['email']) ? validateEmail($connection, $_POST['email']) : null;
 $password_hash = isset($password) ? password_hash($password, PASSWORD_DEFAULT, ['cost' => 10]) : null;
 
 
@@ -33,6 +33,7 @@ $values = (isset($email) ? "'$email', " : "") . (isset($role) ? "'$role', " : ""
 
 $sql = "INSERT INTO users(username, password, " . substr($keys, 0, -2) . ")"
     . " VALUES ('$username', '$password_hash'," . substr($values, 0, -2) . ");";
+
 
 execute_sql($sql, $connection);
 

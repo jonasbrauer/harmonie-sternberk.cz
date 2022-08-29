@@ -108,13 +108,20 @@
         <button @click="$emit('cancel')" class="button is-link is-light">Zrušit</button>
       </div>
     </div>
+
+    <transition name="slide-fade">
+    <article v-if="error" class="message is-danger">
+      <div class="message-body">{{ error }}</div>
+    </article>
+    </transition>
+
   </div>
 </template>
 
 <script>
 export default {
 
-  props: ['inputUser', 'roles', 'allUsers', 'admin', 'loading'],
+  props: ['inputUser', 'roles', 'allUsers', 'admin', 'loading', 'error'],
 
   data() {
     return {

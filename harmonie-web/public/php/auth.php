@@ -100,7 +100,7 @@ function validate_cookie() {
 function login_post() {
   // ...OR initiate login procedure - expect POST data: { username, password }
   if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
+    http_response_code(401);
     exit();
   }
   $_POST = json_decode(file_get_contents('php://input'), true);

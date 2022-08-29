@@ -12,8 +12,8 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $connection = get_connection();
 
-$username = validateUsername($connection, $_POST['username']);
-$email = validateEmail($connection, $_POST['email']);
+$username = isset($_POST['username']) ? validateUsername($connection, $_POST['username']) : null;
+$email = isset($_POST['email']) ? validateEmail($connection, $_POST['email']) : null;
 $password = isset($_POST['password']) ? mysqli_real_escape_string($connection, $_POST['password']) : null;
 $role = isset($_POST['role']) ? mysqli_real_escape_string($connection, $_POST['role']) : null;
 

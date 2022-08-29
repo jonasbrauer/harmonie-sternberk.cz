@@ -145,13 +145,19 @@
       </div>
     </div>
 
+    <transition name="slide-fade">
+    <article v-if="error" class="message is-danger">
+      <div class="message-body">Ups, chybka se vloudila.</div>
+    </article>
+    </transition>
+
   </div>
 </template>
 
 <script>
 export default {
 
-  props: ['inputEvent'],
+  props: ['inputEvent', 'error'],
 
   data() {
     return {
