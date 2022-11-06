@@ -2,16 +2,13 @@
 <div class="container">
 
   <Breadcrumbs :crumbs="crumbs"/>
+
   <div v-if="user">
 
     <section class="hero">
       <div class="hero-body pt-0">
-        <p class="title">
-          Rozpis
-        </p>
-        <p class="subtitle">
-          zkoušek a akcí
-        </p>
+        <p class="title">Rozpis</p>
+        <p class="subtitle">zkoušek a akcí</p>
       </div>
     </section>    
 

@@ -7,8 +7,9 @@
       <div v-for="(col, index) in galleryRows" :key="index + 'gallery-col'"
           class="column p-0 m-0"
       >
-        <div v-for="(image, j) in col" :key="j + image" class="image notloaded-background">
-          <img class="easeload" :src="image" onload="this.style.opacity=1">
+        <div v-for="(image, j) in col" :key="j + image" class="notloaded-background">
+          <!-- <img class="easeload" :src="image" onload="this.style.opacity=1"> -->
+          <GalleryTile :source="image" />
         </div>
       </div>
     </div>
@@ -63,11 +64,12 @@
 <script>
 import Breadcrumbs from '../components/Breadcrumbs.vue'
 import GalleryComponent from '../components/GalleryComponent.vue'
+import GalleryTile from '../components/GalleryTile.vue'
 import axios from 'axios';
 
 export default {
 
-  components: { Breadcrumbs, GalleryComponent },
+  components: { Breadcrumbs, GalleryComponent, GalleryTile },
 
   data() {
     return {
@@ -86,7 +88,7 @@ export default {
       colCount: 3,
       showImages: true,
       galleryRows: [],
-      showedRows: 4, // Show only this number of gallery rows. Extendible/colapsible on click.
+      showedRows: 3, // Show only this number of gallery rows. Extendible/colapsible on click.
       maxShowed: false,
 
       videos: [
@@ -171,14 +173,11 @@ export default {
       }
     },
 
-  },
-
-  created() {
-    this.getGallery();
-    addEventListener('resize', (event) => {
+    computeRowCount(event) {
       // Recalculate on resize the number of items on a single row
       // on mobile: 2, otherwise 3
       if (event.target && event.target.window && event.target.window.innerWidth) {
+        console.log("HEY")
         const width = event.target.window.innerWidth;
         if (width < 500) {
           this.colCount = 2;
@@ -186,8 +185,26 @@ export default {
           this.colCount = 3;
         }
       }
-    });
+    }
+
+  },
+
+  created() {
+    this.getGallery();
+  },
+  mounted() {
+    if (window.innerWidth < 500) {
+      this.colCount = 2;
+    } else {
+      this.colCount = 3;
+    }
+    window.addEventListener('resize', this.computeRowCount);
+  },
+
+  unmounted() {
+    window.removeEventListener('resize', this.computeRowCount);
   }
+
 }
 </script>
 
@@ -212,14 +229,6 @@ export default {
     margin-left: 0em;
     margin-right: 0em;
   }
-}
-
-.easeload{
-  opacity: 0;
-  -webkit-transition: all 0.8s ease; 
-  -moz-transition: all 0.8s ease; 
-  -ms-transition: all 0.8s ease; 
-  -o-transition: all 0.8s ease; 
 }
 
 </style>
