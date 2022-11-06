@@ -4,12 +4,11 @@ import axios from 'axios';
 
 import { RouterLink, RouterView } from 'vue-router'
 import Navbar from './components/Navbar.vue'
-import FooterUpper from './components/FooterUpper.vue'
 import FooterMain from './components/FooterMain.vue'
 
 export default {
 
-  components: { Navbar, FooterUpper, FooterMain },
+  components: { Navbar, FooterMain },
 
   data() {
     return {
@@ -66,18 +65,13 @@ export default {
 <template>
   <div class="page-wrapper">
     
-    <div class="container">
-      <Navbar @logout="user=null" @login="getUser"/>
-    </div>
+    <Navbar @logout="user=null" @login="getUser"/>
     
     <hr class="mt-0 mb-0">
 
-    <transition>
-      <RouterView/>
-    </transition>
+    <RouterView/>
 
     <div class="footers">
-      <FooterUpper/>
       <FooterMain/>
     </div>
 
@@ -112,6 +106,10 @@ body {
   position: sticky;
   top: calc(100vh - 50px);
   width: 100%;
+}
+
+.hr-bottom {
+  border-bottom: solid 1px #ddd;
 }
 
 /*

@@ -34,7 +34,7 @@
     <!-- MORE -->
     <div class="column is-2 is-flex is-align-items-center is-justify-content-center">
       <a v-if="event.info" v-on:click="showDetails=!showDetails" class="has-text-dark">
-        více
+        {{ showDetails ? 'méně' : 'více' }}
         <span
           :class="{
             icon: true,

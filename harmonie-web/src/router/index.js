@@ -14,7 +14,6 @@ import RequestAccessView from  '../views/RequestAccessView.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-
     {
       path: '/',
       name: 'home',
@@ -34,11 +33,6 @@ const router = createRouter({
       path: '/orchestr',
       name: 'orchestr',
       component: OrchestrView,
-    },
-    {
-      path: '/orchestr/uspechy',
-      name: 'success',
-      component: SuccessView,
     },
     {
       path: '/galerie',

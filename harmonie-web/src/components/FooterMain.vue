@@ -1,8 +1,9 @@
 <template>
   <footer class="footer is-primary is-center" style="padding-bottom: 2em; background-color: #aaaaaa;">
+        <div class="container content has-text-centered">
 
-        <div class="container content has-text-centered" style="color: #dddddd;">
-              <div class="content">
+              <div class="content" >
+                  <h4 class="has-text-weight-bold" style="color: #eeeeee">Sledujte nás</h4>
                   <div>
                     <a href="https://www.instagram.com/harmonie_sternberk"
                        target="_blank"
@@ -24,7 +25,7 @@
                     </a>
                   </div>
             </div>
-          <p class="mt-5">Harmonie Šternberk 2022</p>
+          <p class="mt-5" style="color: #eeeeee">Harmonie Šternberk 2022</p>
 
         </div>
       </footer>

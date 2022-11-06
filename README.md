@@ -7,18 +7,21 @@ New (work in progress) Webpage/SPA for [Harmonie Šternberk orchestra](http://ha
 ## Project Setup
 
 ```sh
-npm install
+$ npm install
 ```
 
 ### Run without php functionality
 
 ```sh
-npm run dev
+$ npm run dev
 ```
 
 ### Run with docker-compose (with database and PHP functionality)
 
 ```sh
-npm run build
-docker-compose -f "harmonie-web/docker-compose.yml" up -d --build
+$ docker-compose -f "harmonie-web/docker-compose.yml" up -d --build
+
+$ npm run build
+# or
+$ npm run watch
 ```

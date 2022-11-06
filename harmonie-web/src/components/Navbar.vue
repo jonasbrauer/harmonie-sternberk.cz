@@ -1,87 +1,79 @@
 <template>
 <div>
 
-    <div class="navbar mt-3">
-    <div class="navbar-brand">
-        <RouterLink class="navbar-item" :to="{name: 'home'}" v-on:click="menuActive=false">
-            <img src="@/assets/logo.png">
-            <span class="ml-3 title is-5 has-text-primary">HARMONIE ŠTERNBERK</span>
-        </RouterLink>
+    <div class="navbar">
+        <div class="navbar-brand">
+            <RouterLink class="navbar-item" :to="{name: 'home'}" v-on:click="menuActive=false">
+                <img src="@/assets/logo.png">
+            </RouterLink>
 
-        <a v-on:click="menuActive = !menuActive" role="button"
-            :class="{
-                'mt-2': true,
-                'navbar-burger': true,
-                'is-active': menuActive
-            }" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-    </div>
-
-
-    <div :class="{
-        'navbar-menu': true,
-        'mt-5': true,
-        'is-active': menuActive,
-        }"
-        style="z-index: -1;"
-    >
-        <div class="navbar-start">
-        
-            <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'program'}">Program</RouterLink>
-
-            <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'dirigent'}">Dirigent</RouterLink>
-
-            <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'orchestr'}">Orchestr</RouterLink>
-
-            <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'gallery'}">Galerie</RouterLink>
-
-            <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'success'}">Historie a úspěchy orchestru</RouterLink>
-
-            <RouterLink v-if="user" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'members'}">Sekce pro členy</RouterLink>
-
-            <RouterLink v-if="user && user.role === 'admin'" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'admin'}">Administrace</RouterLink>
-
-        </div>
-
-        <div class="navbar-end">
-        <div v-if="!user" class="navbar-item">
-            <button
-                v-on:click="modalActive = !modalActive; menuActive = false;"
+            <a v-on:click="menuActive = !menuActive" role="button"
                 :class="{
-                    button: true,
-                    'is-rounded': true,
-                    'is-primary': true,
-                    'is-loading': loginLoading,
-                }">
-                <span class="icon">
-                    <i class="fa-solid fa-users"></i>
-                </span>
-                <span>Pro členy</span>
+                    'mt-2': true,
+                    'navbar-burger': true,
+                    'is-active': menuActive
+                }" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div :class="{ 'navbar-menu': true, 'is-active': menuActive }">
+            <div class="navbar-start">
+            
+                <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'program'}">Program</RouterLink>
+
+                <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'orchestr'}">Orchestr</RouterLink>
+
+                <RouterLink v-on:click="menuActive=false" class="navbar-item" :to="{name: 'gallery'}">Galerie</RouterLink>
+
+                <RouterLink v-if="user" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'members'}">Sekce pro členy</RouterLink>
+
+                <RouterLink v-if="user && user.role === 'admin'" v-on:click="menuActive=false" class="navbar-item" :to="{name: 'admin'}">Administrace</RouterLink>
+
+            </div>
+
+            <div class="navbar-end">
+            <div v-if="!user" class="navbar-item">
+                <button
+                    v-on:click="modalActive = !modalActive; menuActive = false;"
+                    :class="{
+                        button: true,
+                        'is-rounded': true,
+                        'is-primary': true,
+                        'is-loading': loginLoading,
+                        'is-outlined': true,
+                        'is-small': true,
+                    }">
+                    <span class="icon">
+                        <i class="fa-solid fa-users"></i>
+                    </span>
+                    <span>Pro členy</span>
+                </button>
+            </div>
+            
+            <div v-else class="navbar-item is-flex is-align-items-center">
+            <span>
+                <strong>{{ user.username.split(" ")[0] }}</strong>
+            </span>
+            <button v-on:click="logout" :class="{
+                button: true,
+                'ml-2': true,
+                'is-small': true,
+                'is-rounded': false,
+                'is-loading': logoutLoading,
+            }">
+            <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
             </button>
-        </div>
-        
-        <div v-else class="navbar-item is-flex is-align-items-center">
-        <span>
-            <strong>{{ user.username.split(" ")[0] }}</strong>
-        </span>
-        <button v-on:click="logout" :class="{
-            button: true,
-            'ml-2': true,
-            'is-small': true,
-            'is-rounded': false,
-            'is-loading': logoutLoading,
-        }">
-        <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-        </button>
-        </div>
+            </div>
+
+            </div>
 
         </div>
     </div>
 
+    <!-- MODAL LOGIN FORM -->
     <div :class="{modal: true, 'is-active': modalActive}">
         <div class="modal-background"></div>
         <div class="modal-content" style="min-height: 50%;">
