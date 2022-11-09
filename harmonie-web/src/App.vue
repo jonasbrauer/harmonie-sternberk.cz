@@ -36,7 +36,6 @@ export default {
   methods: {
 
     getUser() {
-      console.log('GET USER')
       axios
         .get('/php/login.php')
         .then(res => this.user = res.data)

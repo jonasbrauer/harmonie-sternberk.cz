@@ -141,8 +141,6 @@ export default {
       body = doc.getElementsByTagName('body')[0],
       x = win.innerWidth || docElem.clientWidth || body.clientWidth,
       y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
-      console.debug(`${x} x ${y}`)
-
 
       this.galleryRows = [];
       for(var c = 0; c < this.colCount; c++) {
@@ -177,7 +175,6 @@ export default {
       // Recalculate on resize the number of items on a single row
       // on mobile: 2, otherwise 3
       if (event.target && event.target.window && event.target.window.innerWidth) {
-        console.log("HEY")
         const width = event.target.window.innerWidth;
         if (width < 500) {
           this.colCount = 2;
