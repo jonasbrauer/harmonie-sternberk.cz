@@ -163,7 +163,7 @@ export default {
 
 @media only screen and (max-width: 400px) {
     .banner {
-        height: 300px;
+        height: 350px;
     }
 }
 

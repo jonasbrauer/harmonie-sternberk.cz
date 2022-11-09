@@ -4,7 +4,7 @@
   <Breadcrumbs :crumbs="crumbs"/>
 
     <figure class="side-image">
-      <img src="/photos/web/harmonie2.jpg"/>
+      <img src="/photos/web/about-2.jpg"/>
     </figure>
 
     <div class="section py-0">
@@ -25,7 +25,31 @@
       </p>
     </div>
 
-    <p class="section is-small">
+    <div class="section content m-0 pb-5">
+      <div class="columns">
+        <div class="column is-4 has-text-right-tablet">
+          <h2>
+            Nejvýznamnější úspěchy Harmonie Šternberk
+          </h2>
+        </div>
+        <div class="column">
+          <ul class="mt-0">
+            <li>účast na koncertu vítězů rozhlasové soutěže Concerto Bohemia 2002&nbsp;a&nbsp;2007</li>
+            <li>zisk 1. místa na mezinárodním soutěžním festivale mládeže v belgickém Neerpeltu (2003 a 2005)</li>
+            <li>zisk 1. místa na mezinárodní soutěži v italském Sinnai (Sardinie 2011)</li>
+            <li>absolutní vítěz mezinárodních soutěží v Praze (2007, 2009, 2017) a Ostravě (2007, 2013, 2015, 2019, 2021)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="level is-mobile px-2">
+      <GalleryTile class="p-1" source="/photos/web/about-3.jpg" />
+      <GalleryTile class="p-1" source="/photos/web/about-4.jpg" />
+      <GalleryTile class="p-1" source="/photos/web/about-1.jpg" />
+    </div>
+
+    <p class="section py-0">
       V současné době má orchestr přibližně <strong>60 členů</strong> a je složen
       především ze současných i bývalých žáků základní umělecké 
       školy ve Šternberku a studentů středních a vysokých škol.
@@ -33,31 +57,27 @@
       pravidelně se účastní soutěží, festivalů a přehlídek dechových 
       orchestrů v České republice i v zahraničí.
     </p>
-
-    <div class="section py-0 content">
-      <h1 class="is-5 title">Nejvýznamnější úspěchy Harmonie&nbsp;Šternberk:</h1>
-      <ul class="has-text-left">
-        <li>účast na koncertu vítězů rozhlasové soutěže Concerto Bohemia 2002 a 2007</li>
-        <li>zisk 1. místa na mezinárodním soutěžním festivale mládeže v belgickém Neerpeltu (2003 a 2005)</li>
-        <li>zisk 1. místa na mezinárodní soutěži v italském Sinnai (Sardinie 2011)</li>
-        <li>absolutní vítěz mezinárodních soutěží v Praze (2007, 2009, 2017) a Ostravě (2007, 2013, 2015, 2019, 2021)</li>
-      </ul>
-    </div>
     
-    <div class="section py-0 content">
-      <h1 class="title is-5 mb-1">Vrcholy dosavadní činnosti orchestru:</h1>
-      <ul class="has-text-left">
-        <li>účast na 10. ročníku Japonského hudebního festivalu mládeže ve městě Shizuoka v roce 2006</li>
-        <li>trojnásobná účast na světové soutěži WMC (World Music Contest) v holandském Kerkrade v letech 2009, 2013 a 2017</li>
-      </ul>
-    </div>
+    <div class="section content m-0">
 
-    <div class="section py-0 content">
-      <h1 class="title is-5 mb-1">Další udělená ocenění Harmonii Šternberk:</h1>
-      <ul class="has-text-left">
-        <li>Cena města Šternberka 2013</li>
-        <li>Cena Olomouckého kraje za přínos v oblasti kultury 2014</li>
-      </ul>
+      <div class="columns">
+        <div class="column is-4 has-text-right-tablet">
+          <h2>
+            Vrcholy dosavadní činnosti orchestru
+          </h2>
+        </div>
+        <div class="column">
+          <ul class="mt-0 hr-bottom pb-3">
+            <li>účast na 10. ročníku Japonského hudebního festivalu mládeže ve městě Shizuoka v roce 2006</li>
+            <li>trojnásobná účast na světové soutěži WMC (World Music Contest) v holandském Kerkrade v letech 2009, 2013 a 2017</li>
+          </ul>
+          <ul class="mt-0">
+            <li>Cena města Šternberka 2013</li>
+            <li>Cena Olomouckého kraje za přínos v oblasti kultury 2014</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
 
 </div>
@@ -66,10 +86,11 @@
 <script>
 import Breadcrumbs from '../components/Breadcrumbs.vue'
 import Timeline from '../components/Timeline.vue'
+import GalleryTile from '../components/GalleryTile.vue'
 
 export default {
 
-    components: { Breadcrumbs, Timeline },
+    components: { Breadcrumbs, Timeline, GalleryTile },
 
     data() {
         return {
@@ -81,3 +102,16 @@ export default {
 
 }
 </script>
+<style>
+.content li {
+  list-style: none;
+}
+
+.content li:before {
+  content: '\203a';
+  font-family: 'FontAwesome';
+  float: left;
+  margin-left: -1.2em;
+}
+
+</style>

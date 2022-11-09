@@ -115,7 +115,6 @@ export default {
             this.loginLoading = true;
             axios.post('/php/login.php', credentials)
                  .then(res => {
-                     console.log('SUCCESS')
                      this.$emit('login');
                      this.loginError = false;
                      this.modalActive = false;
@@ -124,7 +123,7 @@ export default {
                     })
                  .catch(err => {
                      this.loginError = true
-                     console.error('LOGIN FAILED')
+                     console.error(err)
                     })
                  .finally(() => {
                      this.loginLoading = false;

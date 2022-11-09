@@ -44,7 +44,6 @@
 
       <hr>
 
-      <transition name="slide-fade" mode="out-in">
       <div v-if="events && events.length > 0">
       <div class="column" v-for="(event, key) in events" :key="key + 'admineventrow' + event.id">
         <EventLevel :event=event @delete="deleteEvent(event.id)" @edit="clickEditEvent(event.id)"/>
@@ -60,7 +59,6 @@
       </div>
       </div>
       <LoadingSection v-else :loading="true" />
-      </transition>
       
     </section>
 
@@ -95,7 +93,6 @@
 
       <hr>
 
-      <transition name="slide-fade" mode="out-in">
       <div v-if="users && users.length > 0">
       <div class="column" v-for="(user, key) in unvalidatedUsers" :key="key + 'admin' + user.username">
         <UserLevel :user=user @validate="validateUser(user)" @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)" />
@@ -115,9 +112,8 @@
       </div>
       </div>
       <LoadingSection v-else :loading="true" />
-      </transition><!-- END unvalidated users -->
+      <!-- END unvalidated users -->
 
-      <transition name="slide-fade" mode="out-in">
       <div v-if="users && users.length > 0">
       <div class="column" v-for="(user, key) in validatedUsers" :key="key + 'admin' + user.username">
         <UserLevel :user=user @delete="deleteUser(user.id)" @edit="clickEditUser(user.username)"/>
@@ -136,7 +132,7 @@
         </transition>
       </div>
       </div>
-      </transition><!-- END validated users -->
+      <!-- END validated users -->
 
     </section>
 
