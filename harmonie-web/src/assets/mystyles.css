@@ -4106,7 +4106,7 @@ a.navbar-item,
   flex-grow: 0;
   flex-shrink: 0; }
   .navbar-item img {
-    max-height: 5em; }
+    max-height: 3.5em; }
   .navbar-item.has-dropdown {
     padding: 0; }
   .navbar-item.is-expanded {

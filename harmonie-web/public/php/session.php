@@ -37,9 +37,11 @@ function get_connection() {
 }
 
 function execute_sql($sql, $connection=null) {
+  $auto_close = false;
   // Automatically close connection and respond on db errors
   if (!isset($connection)) {
     $connection = get_connection();
+    $auto_close = true;
   }
 
   try {
@@ -48,6 +50,14 @@ function execute_sql($sql, $connection=null) {
       http_response_code(400);
       exit();
     }
+    if ( is_bool($result) ) {
+      return $result;
+    }
+    $rows = array();
+    while($row = $result->fetch_assoc()) {
+      $rows[] = $row;
+    }
+    return $rows;
 
   } catch (Exception $e) {
     http_response_code(500);
@@ -56,7 +66,9 @@ function execute_sql($sql, $connection=null) {
     exit();
   
   } finally {
-    $connection->close();
+    if ( $auto_close ) {
+      $connection->close();
+    }
   }
 
 }
