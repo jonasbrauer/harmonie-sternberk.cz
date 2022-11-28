@@ -20,7 +20,7 @@
                 <i class="fa-brands fa-facebook"></i>
             </span>
         </a>
-        <a class="level-item" v-on:click="event.likes += 1">
+        <a class="level-item" v-on:click="like">
             <span class="icon is-small"><i class="fas fa-heart"></i></span>
             <span class="ml-1">{{ (event && event.likes) || 0 }}</span>
         </a>
@@ -33,16 +33,32 @@
 
 <script>
 import DateTile from './DateTile.vue'
+import axios from 'axios'
 
 export default {
 
     data() {
         return {
+            like_disabled: false,
         }
     },
 
     components: { DateTile, },
     props: ['event'],
+
+    methods: {
+        like() {
+            if (this.like_disabled) {
+                return;
+            }
+            axios.post("/php/like.php", { event_id: this.event.id })
+                 .then(res => {
+                this.event.likes = res.data.likes;
+            }).finally(() => {
+                this.like_disabled = true;
+            })
+        }
+    }
 
 }
 </script>

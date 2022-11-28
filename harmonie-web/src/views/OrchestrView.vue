@@ -27,8 +27,8 @@
 
     <div class="section content m-0 pb-5">
       <div class="columns">
-        <div class="column is-4 has-text-right-tablet">
-          <h2>
+        <div class="column is-4 has-text-right-tablet is-flex">
+          <h2 class="is-align-self-center" style="max-height: fit-content;">
             Nejvýznamnější úspěchy Harmonie Šternberk
           </h2>
         </div>
@@ -43,13 +43,22 @@
       </div>
     </div>
 
-    <div class="level is-mobile px-2">
+    <div class="level is-mobile px-2 mb-1">
       <GalleryTile class="p-1" source="/photos/web/about-3.jpg" />
       <GalleryTile class="p-1" source="/photos/web/about-4.jpg" />
       <GalleryTile class="p-1" source="/photos/web/about-1.jpg" />
     </div>
+    <p class="has-text-centered mb-2">
+      <small class="help">
+        <RouterLink :to="{name: 'gallery'}">
+          Prohlédnout celou galerii
+          <span class="icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </RouterLink>
+      </small>
+    </p>
 
-    <p class="section py-0">
+
+    <p class="section py-0 mt-3">
       V současné době má orchestr přibližně <strong>60 členů</strong> a je složen
       především ze současných i bývalých žáků základní umělecké 
       školy ve Šternberku a studentů středních a vysokých škol.
@@ -61,8 +70,8 @@
     <div class="section content m-0">
 
       <div class="columns">
-        <div class="column is-4 has-text-right-tablet">
-          <h2>
+        <div class="column is-4 has-text-right-tablet is-flex">
+          <h2 class="is-align-self-center" style="max-height: fit-content;">
             Vrcholy dosavadní činnosti orchestru
           </h2>
         </div>
