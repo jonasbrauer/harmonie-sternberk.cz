@@ -16,7 +16,7 @@
       dechových žesťových nástrojů (Brno, M. Beroun,
        Šternberk). V roce 1999 se stal ředitelem Základní 
        umělecké školy ve Šternberku a současně 
-       také dirigentem studentského dechového orchestru 
+       také dirigentem symfonického dechového orchestru 
        Harmonie Šternberk.
     </p>
     </div>

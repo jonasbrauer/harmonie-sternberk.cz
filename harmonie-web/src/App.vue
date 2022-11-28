@@ -92,7 +92,7 @@ body {
 #app {
   height: 100%;
 
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

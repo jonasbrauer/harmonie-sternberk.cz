@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div id="top" class="container">
   <Breadcrumbs :crumbs="crumbs"/>
   
   <div class="section gallery-container">
@@ -92,9 +92,9 @@ export default {
       maxShowed: false,
 
       videos: [
-        'https://www.youtube.com/embed/xklIFhM0MSo',
-        'https://www.youtube.com/embed/fj7J4YRx4i8',
-        'https://www.youtube.com/embed/12-7QGw0gdA',
+        'https://www.youtube-nocookie.com/embed/y1ssCVafLEY',
+        'https://www.youtube-nocookie.com/embed/12-7QGw0gdA',
+        'https://www.youtube-nocookie.com/embed/fj7J4YRx4i8',
       ],
 
       crumbs: [

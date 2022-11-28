@@ -38,6 +38,7 @@ export default {
       carouselStyle: "",
       carouselIndex: 0,
       carouselTimeoutId: null,
+      preloadedPics: [],
       carousel: [
         '/photos/web/carousel-3.jpg',
         '/photos/web/carousel-1.jpg',
@@ -107,6 +108,12 @@ export default {
   },
 
   mounted() {
+    this.carousel.forEach(url => {
+      const img = new Image();
+      img.src = url;
+      this.preloadedPics.push(img);
+    })
+
     if (!this.carouselRunning) {
       this.carouselRunning = true;
       this.carouselStart();

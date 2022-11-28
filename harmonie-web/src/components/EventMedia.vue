@@ -4,12 +4,12 @@
     
     <DateTile :date="event && event.datetime"/>
 
-    <div class="media-content">
+    <div>
     <p >
         <small>{{ event && event.datetime && new Date(event.datetime).getHours() }}:00</small>
         <span v-if="event && event.location"> - {{ event.location }}</span>
         <br>
-        <strong class="is-size-5">{{ event && event.title }}</strong> <small>{{ event && event.link }}</small>
+        <strong class="is-size-5">{{ event && event.title }}</strong>
         <br>
         <span>{{ event && event.subtitle }}</span>
     </p>

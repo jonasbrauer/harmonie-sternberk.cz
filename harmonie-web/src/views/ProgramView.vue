@@ -27,7 +27,7 @@
                     <i class="fa-solid fa-circle-chevron-up"></i>
                 </a>  
             </h3>
-            <EventMedia v-for="(event, index) in previousEvents" :key="index + '-event'" :event="event"/>
+            <EventMedia v-for="(event, index) in previousEvents" :key="index + '-event'" :event="event" class="my-3"/>
             </div>
     </div>
     </transition>
