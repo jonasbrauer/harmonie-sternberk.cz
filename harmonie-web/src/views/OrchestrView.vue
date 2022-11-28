@@ -10,7 +10,7 @@
     <div class="section py-0">
       <h1 class="is-4 title hr-bottom py-4">HARMONIE ŠTERNBERK</h1>
       <p class="py-1">
-        je studentský dechový
+        je symfonický dechový
         orchestr, který byl založen krátce po vzniku hudební školy ve 
         Šternberku - první vystoupení tohoto souboru je zaznamenáno v r. 1957.
       </p>
