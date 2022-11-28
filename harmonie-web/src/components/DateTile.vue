@@ -2,7 +2,7 @@
     <div class="date-box has-text-centered">
         <h1 class="title mb-1">{{ day }}</h1>
         <p class="">{{ month }}</p>
-        <p class=""><strong>{{ year }}</strong></p>
+        <p class="">{{ year }}</p>
     </div>
 </template>
 
