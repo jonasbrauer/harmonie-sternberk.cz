@@ -26,6 +26,7 @@
       >
         {{ eventTypesMap[type] || type }}
       </a>
+      <ICal :events="showedEvents"/>
     </div>
 
     <hr class="mt-1">
@@ -73,10 +74,11 @@ import axios from 'axios';
 import Breadcrumbs from '../components/Breadcrumbs.vue';
 import RehearsalRow from '../components/RehearsalRow.vue';
 import LoadingSection from '../components/LoadingSection.vue';
+import ICal from '../components/ICal.vue';
 
 export default {
 
-    components: { Breadcrumbs, RehearsalRow, LoadingSection },
+    components: { Breadcrumbs, RehearsalRow, LoadingSection, ICal },
 
     inject: ['user'],
 
