@@ -9,7 +9,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./dist:/var/www/html/
+      - ./dist:/var/www/html/:Z
   
   php:
     build:
@@ -18,8 +18,8 @@ services:
     networks: 
       - internal
     volumes:
-      - ./dist:/var/www/html
-      - ./docker/php/data:/var/www/data
+      - ./dist:/var/www/html:Z
+      - ./docker/php/data:/var/www/data:Z
 
   db:
     build:

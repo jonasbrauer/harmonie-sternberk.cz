@@ -30,12 +30,19 @@
 
     <hr class="mt-1">
 
-    <transition name="slide-fade" mode="out-in">
-      <section v-if="events && events.length > 0" class="section pt-0">
-        <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
-      </section>
-      <LoadingSection v-else :loading="true" />
-    </transition>
+    <section v-if="events && events.length > 0" class="section pt-0">
+      <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
+    </section>
+    <LoadingSection v-else-if="loading" :loading="true" />
+    <section v-else class="hero has-text-centered">
+      <div class="hero-body">
+        <p class="title">
+          <span class="icon mr-1">
+            <i class="fa-solid fa-thumbs-up"></i>
+          </span>
+        </p>
+      </div>
+    </section>
 
   </div>
 
@@ -75,6 +82,7 @@ export default {
 
     data() {
       return {
+        loading: false,
         events: [], // all events
         showedEvents: [],
         eventTypes: [],

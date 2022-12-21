@@ -30,7 +30,15 @@
           </RouterLink>
       </div>
     </div>
-    <LoadingSection v-else :loading="true" />
+    <LoadingSection v-else-if="loadingEvents" :loading="true" />
+    <section v-else class="hero is-medium">
+      <div class="hero-body has-text-centered">
+        <p class="subtitle">Momentálně nemáme naplánované žádné akce.</p>
+        <p class="title">
+          <i class="fa-solid fa-face-sad-tear"></i>
+        </p>
+      </div>
+    </section>
     
     </div>
     <div class="section p-0 pb-5 is-small has-text-centered">
@@ -50,7 +58,7 @@ export default {
 
   components: { EventMedia, LoadingSection, Carousel },
 
-  inject: ['events'],
+  inject: ['events', 'loadingEvents'],
 
   computed: {
 

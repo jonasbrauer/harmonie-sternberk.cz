@@ -14,6 +14,7 @@ export default {
     return {
       user: null,
       events: [],
+      loadingEvents: false
     }
   },
 
@@ -22,6 +23,7 @@ export default {
     return {
       user: computed(() => this.user),  // logged-in user
       events: computed(() => this.events),  // queried events
+      loadingEvents: computed(() => this.loadingEvents),
     }
   },
 
@@ -43,12 +45,14 @@ export default {
     },
 
     getEvents() {
+      this.loadingEvents = true
       axios
         .get('/php/events_public_get.php')
         .then(res => {
           this.events = res.data;
         })
         .catch(err => this.events = [])
+        .finally(() => this.loadingEvents = false)
     },
 
     logout() {

@@ -7,9 +7,12 @@ include 'session.php';
 
 
 // use for cookie hash
-// todo: move to hidden folder
-define('SECRET_WORD', 'bibfir%%MyH9u6qh4fv9iQAF6n$2!3n9wppLGc%^7NSpyEVrRnn@^DNhAr');
-
+$db_config = "../../data/secret";
+if (!file_exists($db_config)) {
+  http_response_code(511);
+  exit();
+}
+define('SECRET_WORD', file_get_contents($db_config));
 
 function get_user($username_or_email) {
   // Query user data from the database
