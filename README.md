@@ -1,6 +1,6 @@
 # Harmonie Šternberk
 
-New (work in progress) Webpage/SPA for [Harmonie Šternberk orchestra](http://harmonie-sternberk.cz/).
+New webpage/SPA for [Harmonie Šternberk orchestra](http://harmonie-sternberk.cz/).
 
 #
 
