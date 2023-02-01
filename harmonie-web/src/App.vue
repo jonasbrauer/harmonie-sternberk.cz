@@ -14,7 +14,8 @@ export default {
     return {
       user: null,
       events: [],
-      loadingEvents: false
+      loadingEvents: false,
+      configHeaders: { "Accept": "application/json" }
     }
   },
 
@@ -39,15 +40,16 @@ export default {
 
     getUser() {
       axios
-        .get('/php/login.php')
+        .get('/php/login.php', headers=this.configHeaders)
         .then(res => this.user = res.data)
         .catch(err => this.user = null)
     },
 
     getEvents() {
       this.loadingEvents = true
+
       axios
-        .get('/php/events_public_get.php')
+        .get('/php/events_public_get.php', headers=this.configHeaders)
         .then(res => {
           this.events = res.data;
         })
