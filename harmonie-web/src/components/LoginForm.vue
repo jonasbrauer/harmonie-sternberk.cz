@@ -7,7 +7,7 @@
         <input v-model="credentials.username" class="input" placeholder="jan.novak@gmail.com">
         <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
     </div>
-    <p class="help">Jméno a příjmení nebo email</p>
+    <p class="help">Uživatelské Jméno nebo email</p>
     </div>
 
     <!-- PSWD -->

@@ -20,58 +20,20 @@
       </div>
     </div>
     
-    <div class="column is-2">      
-      <transition name="slide-fade" mode="out-in">
-        
-        <div v-if="!deleteConfirm" class="columns">
-          <div class="column p-1">
-          <button class="button is-fullwidth" @click="$emit('edit')">
-            <span class="icon">
-              <i class="fa-solid fa-pen"></i>
-            </span>
-          </button>
-        </div>
-        <div class="column p-1">
-          <button v-if="!deleteConfirm" class="button is-danger is-light is-fullwidth" @click="deleteConfirm = !deleteConfirm">
-            <span class="icon">
-              <i class="fa-solid fa-trash"></i>
-            </span>
-          </button>
-        </div>
-        </div> <!-- END COLUMNS -->
-
-        <div v-else class="columns">
-          <div class="column p-1">
-            <button class="button is-danger is-fullwidth is-light" @click="$emit('delete', event.id)">
-              <span class="icon">
-                <i class="fa-solid fa-trash"></i>
-              </span>
-            </button>
-          </div>
-          <div class="column p-1">
-            <button class="button is-link is-fullwidth is-light" @click="deleteConfirm = !deleteConfirm">
-              <span class="icon">
-                <i class="fa-solid fa-ban"></i>
-              </span>
-            </button>
-          </div>
-        </div><!-- END COLUMNS -->
-
-      </transition>
-    </div>
+    <DeleteButton @delete="$emit('delete', event.id)" @edit="$emit('edit')" />
 
   </div>
 </template>
 
 <script>
-import DatetimeSimple from '../components/DatetimeSimple.vue'
-
+import DatetimeSimple from "./DatetimeSimple.vue"
+import DeleteButton from "./DeleteButton.vue";
 
 export default {
 
   props: ['event'],
 
-  components: { DatetimeSimple },
+  components: { DatetimeSimple, DeleteButton },
 
   data() {
     return {

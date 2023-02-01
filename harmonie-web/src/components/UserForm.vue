@@ -2,7 +2,7 @@
   <div>
 
     <div class="field">
-      <label class="label">Jméno a příjmení</label>
+      <label class="label">Uživatelské jméno</label>
       <div class="control has-icons-left has-icons-right">
         <input
           :class="{input:true, 'is-danger': invalidUsername, 'is-success': !invalidUsername && user.username}"
