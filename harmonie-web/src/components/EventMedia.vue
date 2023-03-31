@@ -5,13 +5,16 @@
     <DateTile :date="event && event.datetime"/>
 
     <div>
-    <p >
-        <small>{{ event && event.datetime && new Date(event.datetime).getHours() }}:00</small>
-        <span v-if="event && event.location"> - {{ event.location }}</span>
-        <br>
-        <strong class="is-size-5">{{ event && event.title }}</strong>
-        <br>
-        <span>{{ event && event.subtitle }}</span>
+    <p>
+        <h1>{{ event && event.title }}</h1>
+        <h2 v-if="event && event.subtitle">{{ event.subtitle }}</h2>
+        <small>
+            <span class="icon is-small mr-1"><i class="fa-regular fa-clock"></i></span>{{ time }}
+        </small>
+        <h4 v-if="event && event.location">
+            <span class="icon is-small mr-1"><i class="fa-solid fa-location-dot"></i></span>{{ event.location }}
+        </h4>
+            
     </p>
     <nav class="level is-mobile">
         <div class="level-left">
@@ -46,6 +49,13 @@ export default {
     components: { DateTile, },
     props: ['event'],
 
+    computed: {
+        time() {
+            const datetime = new Date(this.event.datetime);
+            return datetime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+    },
+
     methods: {
         like() {
             if (this.like_disabled) {
@@ -63,7 +73,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+h1 {
+    font-size: x-large;
+}
+
 .event-media {
     width: 50%;
     position: relative;

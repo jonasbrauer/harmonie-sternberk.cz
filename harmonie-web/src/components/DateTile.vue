@@ -1,6 +1,6 @@
 <template>
     <div class="date-box has-text-centered">
-        <h1 class="title mb-1">{{ day }}</h1>
+        <h1 class="title mb-1" style="font-family: serif;">{{ day }}</h1>
         <p class="">{{ month }}</p>
         <p class="">{{ year }}</p>
     </div>

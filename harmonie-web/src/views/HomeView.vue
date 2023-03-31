@@ -20,7 +20,7 @@
       </section>
 
     <div v-if="upcomingEvents && upcomingEvents.length > 0" class="section pt-3 has-text-center">
-      <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event"/>
+      <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event" class="my-5"/>
 
       <div class="has-text-centered pt-4">
           <RouterLink :to="{name: 'program'}" class="">

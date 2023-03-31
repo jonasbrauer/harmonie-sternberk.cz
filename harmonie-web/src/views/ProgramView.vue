@@ -5,7 +5,7 @@
     
     <div class="px-5 has-text-">
         <h3 class="subtitle has-text-centered">Nadcházející akce</h3>
-        <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event"/>
+        <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event" class="my-4"/>
     </div>
 
     <transition name="fade" mode="out-in">
@@ -27,7 +27,7 @@
                     <i class="fa-solid fa-circle-chevron-up"></i>
                 </a>  
             </h3>
-            <EventMedia v-for="(event, index) in previousEvents" :key="index + '-event'" :event="event" class="my-3"/>
+            <EventMedia v-for="(event, index) in previousEvents" :key="index + '-event'" :event="event" class="my-4"/>
             </div>
     </div>
     </transition>

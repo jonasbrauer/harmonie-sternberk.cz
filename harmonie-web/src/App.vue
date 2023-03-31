@@ -40,21 +40,21 @@ export default {
 
     getUser() {
       axios
-        .get('/php/login.php', headers=this.configHeaders)
+        .get('/php/login.php', { headers: this.configHeaders })
         .then(res => this.user = res.data)
         .catch(err => this.user = null)
     },
 
     getEvents() {
       this.loadingEvents = true
-
       axios
-        .get('/php/events_public_get.php', headers=this.configHeaders)
-        .then(res => {
-          this.events = res.data;
+        .get('/php/events_public_get.php', { headers: this.configHeaders })
+        .then(res => { this.events = res.data; })
+        .catch(err => { this.events = []; console.error(err) })
+        .finally(() => {
+          console.info("finally...")
+          this.loadingEvents = false
         })
-        .catch(err => this.events = [])
-        .finally(() => this.loadingEvents = false)
     },
 
     logout() {
