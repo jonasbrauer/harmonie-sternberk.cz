@@ -16,9 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: gogaille/setup-monorepo-node-app@v1.1
+    - uses: actions/setup-node@v3
       with:
-        node-version: 16
-        working-directory: harmonie-web
+        node-version: 18
     - run: npm run build
-      working-directory: ./harmonie-web
