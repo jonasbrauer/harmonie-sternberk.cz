@@ -31,7 +31,7 @@ services:
     networks: 
       - internal
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password  # username: root
       MYSQL_DATABASE: harmonie
 
   adminer:

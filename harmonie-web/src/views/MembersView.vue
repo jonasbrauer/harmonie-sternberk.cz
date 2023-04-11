@@ -2,7 +2,6 @@
 <div class="container">
 
   <Breadcrumbs :crumbs="crumbs"/>
-
   <div v-if="user">
 
     <section class="hero">
@@ -32,7 +31,7 @@
     <hr class="mt-1">
 
     <section v-if="events && events.length > 0" class="section pt-0">
-      <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + index" :event="event"/>
+      <RehearsalRow v-for="(event, index) in showedEvents" :key="'event' + event.id" :event="event"/>
     </section>
     <LoadingSection v-else-if="loading" :loading="true" />
     <section v-else class="hero has-text-centered">
@@ -86,7 +85,7 @@ export default {
       return {
         loading: false,
         events: [], // all events
-        showedEvents: [],
+        // showedEvents: [],
         eventTypes: [],
         eventTypesFilters: [],
         eventTypesMap: {
@@ -97,6 +96,14 @@ export default {
         crumbs: [
             ['home', 'Domů'], ['members', 'Pro členy']
         ],
+      }
+    },
+
+    computed: {
+      showedEvents() {
+        return this.events
+          .filter(event => this.eventTypesFilters.indexOf(event.type) == -1)
+          .sort((a, b) => a.datetime - b.datetime);
       }
     },
 
@@ -123,12 +130,6 @@ export default {
         this.filterEvents();
       },
 
-      filterEvents() {
-        this.showedEvents = this.events
-          .filter(event => this.eventTypesFilters.indexOf(event.type) == -1)
-          .sort((a, b) => a.datetime > b.datetime ? 1 : -1);
-      },
-
       getEvents() {
         const zero = new Date();
         zero.setHours(0, 0, 0);
@@ -138,11 +139,6 @@ export default {
                   .filter(event => event.datetime && new Date(event.datetime) > zero)
                   .sort((a, b) => a.datetime > b.datetime ? 1 : -1);
               this.eventTypes = new Set(this.events.map(e => e.type));
-              if (this.eventTypes.has('rehearsal')) {
-                this.eventTypesFilters = ['concert', 'tour'];
-              }
-
-              this.filterEvents();
             })
       },
     },

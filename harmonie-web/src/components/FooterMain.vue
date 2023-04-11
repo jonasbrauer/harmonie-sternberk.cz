@@ -3,7 +3,7 @@
         <div class="container content has-text-centered">
 
               <div class="content" >
-                  <h4 class="has-text-weight-bold" style="color: #eeeeee">Sledujte nás</h4>
+                  <h4 style="color: #eeeeee">Sledujte nás</h4>
                   <div>
                     <a href="https://www.instagram.com/harmonie_sternberk"
                        target="_blank"
