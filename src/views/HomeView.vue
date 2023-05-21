@@ -6,6 +6,10 @@
 
     <div class="container mt-3">    
 
+      <div class="poster">
+        <img src="/posters/2023_05_27.jpg">
+      </div>
+
       <section class="hero has-text-centered">
         <div class="hero-body pb-2">
           
@@ -83,3 +87,16 @@ export default {
 
 }
 </script>
+<style lang="scss" scoped>
+  
+.poster {
+  display: grid;
+  justify-items: center;
+
+  img {
+    @media screen and (min-width: 720px) {
+      width: 50%;
+    }
+  }
+}
+</style>
