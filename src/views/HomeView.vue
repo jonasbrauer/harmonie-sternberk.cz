@@ -6,9 +6,9 @@
 
     <div class="container mt-3">    
 
-      <div class="poster">
+      <!-- <div class="poster">
         <img src="/posters/2023_05_27.jpg">
-      </div>
+      </div> -->
 
       <section class="hero has-text-centered">
         <div class="hero-body pb-2">
