@@ -3,8 +3,8 @@ name: Release built app
 on:
   push:
     tags:
-      - "v*"
-    
+      - 'v*'
+
 
 jobs:
   build-and-publish:
@@ -24,9 +24,11 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.zip'
-        directory: 'dist'
+        directory: '.'
+        path: 'dist'
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0
       with:
-        artifacts: "release.zip"
+        artifacts: 'release.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
+
