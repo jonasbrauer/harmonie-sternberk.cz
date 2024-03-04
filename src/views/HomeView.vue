@@ -13,39 +13,36 @@
       <section class="hero has-text-centered">
         <div class="hero-body pb-2">
           
-          <p class="title is-4">
+          <h1 class="title is-4">
             <span class="icon mr-2">
-              <i class="fa-solid fa-calendar-days"></i>
+              <i class="fa-solid fa-calendar"></i>
             </span>
             NEJBLIŽŠÍ AKCE
-            </p>
+          </h1>
         </div>
         <hr>
       </section>
 
-    <div v-if="upcomingEvents && upcomingEvents.length > 0" class="section pt-3 has-text-center">
-      <EventMedia v-for="(event, index) in upcomingEvents" :key="index + '-event'" :event="event" class="my-5"/>
+      <div v-if="upcomingEvents && upcomingEvents.length > 0" class="events-list">
+        <EventMedia v-for="(event, index) in upcomingEvents" :key="event.datetime" :event="event" />
 
-      <div class="has-text-centered pt-4">
-          <RouterLink :to="{name: 'program'}" class="">
-            <button class="button is-link is-outlined is-small">
-              Další akce
-            </button>
-          </RouterLink>
+        <div class="has-text-centered">
+            <RouterLink :to="{name: 'program'}" class="">
+              <button class="button is-link is-outlined is-small">
+                Další akce
+              </button>
+            </RouterLink>
+        </div>
       </div>
-    </div>
-    <LoadingSection v-else-if="loadingEvents" :loading="true" />
-    <section v-else class="hero is-medium">
-      <div class="hero-body has-text-centered">
-        <p class="subtitle">Momentálně nemáme naplánované žádné akce.</p>
-        <p class="title">
-          <i class="fa-solid fa-face-sad-tear"></i>
-        </p>
+      <LoadingSection v-else-if="loadingEvents" :loading="true" />
+      <section v-else class="hero is-medium">
+        <div class="hero-body has-text-centered">
+          <p class="subtitle">Momentálně nemáme naplánované žádné akce</p>
+        </div>
+      </section>
+      
       </div>
-    </section>
-    
-    </div>
-    <div class="section p-0 pb-5 is-small has-text-centered">
+      <div class="section p-0 pb-5 is-small has-text-centered">
     </div>
 
   </main>
@@ -72,14 +69,14 @@ export default {
       const upcoming = this.events
         .filter(event => event.datetime)
         .filter(event => new Date(event.datetime) > nextDay)
-        .filter(event => new Date(event.datetime) > nextDay);
+        .filter(event => new Date(event.datetime) > nextDay)
+        .sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
 
       // SHOW ONLY NEXT N EVENTS
       const n = 3;
       if (upcoming.length > n) {
         upcoming.length = n;
       }
-      upcoming.sort((a, b) => a.datetime > b.datetime)
       return upcoming;
     }
 

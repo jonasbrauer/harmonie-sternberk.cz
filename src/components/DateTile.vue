@@ -1,8 +1,8 @@
 <template>
-    <div class="date-box has-text-centered">
-        <h1 class="title mb-1" style="font-family: serif;">{{ day }}</h1>
-        <p class="">{{ month }}</p>
-        <p class="">{{ year }}</p>
+    <div class="date">
+        <div class="digit">{{ day }}</div>
+        <span>{{ month }}</span>
+        <span v-if="new Date().getUTCFullYear() !== year">{{ year }}</span>
     </div>
 </template>
 
@@ -51,19 +51,27 @@ export default {
 }
 </script>
 
-<style>
-.date-box {
-    min-width: 6em;
-
-    padding: 0.5em;
-    margin-left: 0em;
-    margin-right: 1em;
-
-    border: 1px solid #bbbbbb;
+<style lang="css" scoped>
+.date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* border-right: 1px solid #27475b; */
+}
+.digit {
+    font-size: 5rem;
+    line-height: 4rem;
+    font-weight: 100;
+    font-family: "Karma", serif;
+    width: 6.5rem;
+    /* color: #27475b; */
 }
 
-.day-number {
-    font-size: 2em;
-    font-weight: 25px;
+span {
+    font-weight: 100;
+    font-size: large;
+    text-transform: uppercase;
+    /* color: #27475b; */
 }
 </style>

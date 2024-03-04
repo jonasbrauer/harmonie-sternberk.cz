@@ -1,13 +1,13 @@
 <template>
-<div class="container">
+<div class="page">
 
   <Breadcrumbs :crumbs="crumbs"/>
   <div v-if="user">
 
     <section class="hero">
       <div class="hero-body pt-0">
-        <p class="title">Rozpis</p>
-        <p class="subtitle">zkoušek a akcí</p>
+        <h1 class="title">Rozpis</h1>
+        <h2 class="subtitle">zkoušek a akcí</h2>
       </div>
     </section>    
 
@@ -36,11 +36,7 @@
     <LoadingSection v-else-if="loading" :loading="true" />
     <section v-else class="hero has-text-centered">
       <div class="hero-body">
-        <p class="title">
-          <span class="icon mr-1">
-            <i class="fa-solid fa-thumbs-up"></i>
-          </span>
-        </p>
+        <h1 class="title">Žádné naplánované zkoušky</h1>
       </div>
     </section>
 

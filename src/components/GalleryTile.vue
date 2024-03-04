@@ -16,7 +16,7 @@ export default {
 .image-container {
   position: relative;
   width: 100%;
-  height: 8em;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 

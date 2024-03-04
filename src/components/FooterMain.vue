@@ -3,7 +3,7 @@
         <div class="container content has-text-centered">
 
               <div class="content" >
-                  <h4 style="color: #eeeeee">Sledujte nás</h4>
+                  <h4>Sledujte nás</h4>
                   <div>
                     <a href="https://www.instagram.com/harmonie_sternberk"
                        target="_blank"
@@ -31,12 +31,22 @@
       </footer>
 </template>
 
-<style>
+<style lang="css" scoped>
 .footer-text {
   color: #dddddd;
 }
 
-.footer-text :hover {
-  color: #333333;
+a:hover {
+  transition: 0.3s ease-in-out;
+  color: #8b9ca7 !important;
+}
+
+.footer {
+  background-color: #27475b !important;
+}
+
+h4 {
+  color: #eee !important;
+  font-weight: 100 !important;
 }
 </style>

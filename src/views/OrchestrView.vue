@@ -1,5 +1,5 @@
 <template>
-<div class="container pb-5 mb-5">
+<div class="page">
 
   <Breadcrumbs :crumbs="crumbs"/>
 
