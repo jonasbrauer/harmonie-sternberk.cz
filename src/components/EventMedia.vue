@@ -20,7 +20,7 @@
         </div> -->
         <h1>{{ event && event.title }}</h1>
         <h2 v-if="event && event.subtitle">{{ event.subtitle }}</h2>
-        <div class="mt-2">
+        <div style="margin-top: auto;">
             <h4 v-if="event && event.location">
                 <span class="icon is-small mr-1"><i class="fa-solid fa-location-dot"></i></span>{{ event.location }}
             </h4>
@@ -98,6 +98,7 @@ h4 {
     position: relative;
     margin-right: 0;
     padding: 1.5rem 1rem;
+    padding-left: 0;
     border-radius: .5rem;
     box-shadow: 3px 3px 10px #27475b2a;
 }
@@ -116,10 +117,12 @@ h4 {
 
 .event-media-content {
     display: flex;
+    gap: .5rem;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     padding-left: .8rem;
-    border-left: 1px solid #27475b6c;
+    border-left: 1px solid #27475b5b;
 }
 
 h1 {
@@ -127,22 +130,9 @@ h1 {
     line-height: 100%;
 }
 
-/* @media only screen and (max-width: 800px) {
-    .event-media {
-        width: 50vw;
-    }
+h2 {
+    font-size: 1rem;
+    line-height: 1.1rem;
 }
-
-@media only screen and (max-width: 500px) {
-    .event-media {
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    .event-media {
-        width: 100%;
-    }
-} */
 
 </style>

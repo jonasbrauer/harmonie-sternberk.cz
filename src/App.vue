@@ -114,7 +114,7 @@ body {
 
 .page {
   /* instead of broken container */
-  width: min(100%, 1280px);
+  width: min(100%, 1100px);
   margin-inline: auto;
 }
 

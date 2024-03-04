@@ -2,7 +2,12 @@
   <div class="page">
     <Breadcrumbs :crumbs="crumbs"></Breadcrumbs>
 
-    <h3 class="subtitle has-text-centered">Nadcházející akce</h3>
+    <h1 class="title has-text-centered">
+        <span class="icon mr-2">
+          <i class="fa-solid fa-calendar"></i>
+        </span>
+        Nadcházející akce
+    </h1>
     <div class="events-list">
       <EventMedia
         v-for="(event, index) in upcomingEvents"
@@ -94,5 +99,9 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.title {
+    font-size: larger !important;
 }
 </style>

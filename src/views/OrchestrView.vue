@@ -3,12 +3,10 @@
 
   <Breadcrumbs :crumbs="crumbs"/>
 
-    <figure class="side-image">
-      <img src="/photos/web/about-2.jpg"/>
-    </figure>
+    <img src="/photos/web/about-2.jpg"/>
 
     <div class="section py-0">
-      <h1 class="is-4 title hr-bottom py-4">HARMONIE ŠTERNBERK</h1>
+      <h1 class="hr-bottom py-4">HARMONIE ŠTERNBERK</h1>
       <p class="py-1">
         je symfonický dechový
         orchestr, který byl založen krátce po vzniku hudební školy ve 
@@ -111,7 +109,7 @@ export default {
 
 }
 </script>
-<style>
+<style lang="css" scoped>
 .content li {
   list-style: none;
 }
@@ -123,4 +121,12 @@ export default {
   margin-left: -1.2em;
 }
 
+img {
+  width: 100%;
+  border-radius: .2rem;
+}
+
+h1 {
+  font-size: xx-large !important;
+}
 </style>

@@ -57,10 +57,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    /* border-right: 1px solid #27475b; */
+    line-height: 1rem;
 }
 .digit {
-    font-size: 5rem;
+    font-size: 3.5rem;
     line-height: 4rem;
     font-weight: 100;
     font-family: "Karma", serif;

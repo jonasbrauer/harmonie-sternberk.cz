@@ -9,19 +9,13 @@
       <!-- <div class="poster">
         <img src="/posters/2023_05_27.jpg">
       </div> -->
-
-      <section class="hero has-text-centered">
-        <div class="hero-body pb-2">
           
-          <h1 class="title is-4">
-            <span class="icon mr-2">
-              <i class="fa-solid fa-calendar"></i>
-            </span>
-            NEJBLIŽŠÍ AKCE
-          </h1>
-        </div>
-        <hr>
-      </section>
+      <h1 class="title is-4">
+        <span class="icon mr-2">
+          <i class="fa-solid fa-calendar"></i>
+        </span>
+        NEJBLIŽŠÍ AKCE
+      </h1>
 
       <div v-if="upcomingEvents && upcomingEvents.length > 0" class="events-list">
         <EventMedia v-for="(event, index) in upcomingEvents" :key="event.datetime" :event="event" />
@@ -95,5 +89,11 @@ export default {
       width: 50%;
     }
   }
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-<div id="top" class="page">
+<div id="top" class="page px-1">
   <Breadcrumbs :crumbs="crumbs"/>
   
-  <div class="section gallery-container">
+  <div class="gallery-container">
     <div class="photos-container">
       <div v-for="image in showedImages" class="column p-0 m-0">
         <GalleryTile :source="image" />
@@ -24,42 +24,43 @@
 
   <hr>
 
-  <section class="hero mb-5 gallery-container">
-    <div class="hero-body py-0">
-      <h2 class="title is-4">Video</h2>
-      <p class="subtitle is-6">
-        Další videa můžete shlédnout na našem
-        <a href="https://www.youtube.com/channel/UCkTMDhD8DZdeOrE5NJttvFQ" target="_blank">
-        Youtube kanále
-        </a>.
-      </p>
-    </div>
-  </section>
+  <h2 class="title is-4">Video</h2>
+  <p class="subtitle is-6">
+    Další videa můžete shlédnout na našem
+    <a href="https://www.youtube.com/channel/UCkTMDhD8DZdeOrE5NJttvFQ" target="_blank">
+    Youtube kanále
+    </a>.
+  </p>
 
-  <section class="section gallery-container videos-container">
-    <figure v-for="(videoUrl, index) in videos" :key="'video' + videoUrl + index" class="image is-16by9">
-      <iframe class="has-ratio" width="560" height="315"
-        :src="videoUrl"
-        title="YouTube video player"
-        frameborder="0"
-        allow="encrypted-media; gyroscope;"
-        allowfullscreen
-      ></iframe>
-    </figure>
-
+  <section class="gallery-container videos-container">
+  <figure v-for="(videoUrl, index) in videos" :key="'video' + videoUrl + index" class="image is-16by9">
+    <iframe class="has-ratio" width="560" height="315"
+      :src="videoUrl"
+      title="YouTube video player"
+      frameborder="0"
+      allow="encrypted-media; gyroscope;"
+      allowfullscreen
+    ></iframe>
+  </figure>
   </section>
 
 </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import Breadcrumbs from '../components/Breadcrumbs.vue'
 import GalleryComponent from '../components/GalleryComponent.vue'
 import GalleryTile from '../components/GalleryTile.vue'
 import axios from 'axios';
 
-const crumbs = [['home', 'Domů'], ['orchestr', 'Orchestr']];
+// onMounted(() => {
+//   setTimeout(() => {
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+//   }, .5);
+// })
+
+const crumbs = [['home', 'Domů'], ['gallery', 'Galerie']];
 
 const galleryLoading = ref(false);
 const galleryError = ref(false)
@@ -88,7 +89,7 @@ const videos = [
 
 
 const showedImages = computed(() => {
-  return latest.value.splice(0, showedCount.value);
+  return latest.value.slice(0, showedCount.value);
 });
 
 
@@ -126,13 +127,6 @@ const showMore = () => {
   background: linear-gradient(52deg, rgba(255,255,255,1) 0%, rgba(227,227,236,1) 100%);
 }
 
-@media only screen and (max-width: 700px) {
-  .gallery-container {
-    margin-left: 0em;
-    margin-right: 0em;
-  }
-}
-
 .photos-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -153,7 +147,7 @@ const showMore = () => {
 
 .videos-container {
   display: grid;
-  gap: 1rem;
+  gap: .5rem;
   grid-template-columns: 1fr 1fr;
 }
 
@@ -161,5 +155,9 @@ const showMore = () => {
   .videos-container {
     grid-template-columns: 1fr;
   }
+}
+
+iframe {
+  border-radius: .5rem;
 }
 </style>

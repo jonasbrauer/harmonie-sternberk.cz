@@ -166,7 +166,7 @@ export default {
   methods: {
     login(credentials) {
       this.loginLoading = true;
-      login()
+      login(credentials)
         .then((res) => {
           this.$emit("login");
           this.loginError = false;
